@@ -1,33 +1,314 @@
-.App {
-  text-align: center;
+/*topbar styling */
+.topbar {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  font-size: 1.1vw;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.logo {
+  order: 1;
+  flex-grow: 2;
+  background-color: red;
+  margin: 0;
+  padding: 10px 0px 0px 0px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.user-details {
+  order: 2;
+  flex-grow: 1;
+  background-color: yellow;
+  margin: 0;
+  padding: 20px 0px 0px 0px;
+}
+.login-section {
+  order: 3;
+  flex-grow: 1;
+  background-color: greenyellow;
+}
+.link {
+  text-decoration: none;
+  color: black;
+}
+/* article-container styling*/
+.articles-container {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  position: relative;
+  height: 100%;
+  align-items: center;
+  padding-top: 11vh;
+}
+.articles-column {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 50vw;
+  font-size: 1.1vw;
+}
+/* button styling */
+
+button {
+  width: 45%;
+  height: 60%;
+  font-size: 90%;
+  text-align: center;
+}
+#load-more-button {
+  width: 100%;
+  font-size: 100%;
+}
+
+#load-more-comments-button {
+  width: 100%;
+  font-size: 100%;
+}
+#article-comment-box-button {
+  width: 10%;
+  height: 11%;
+  order: 2;
+}
+
+/* filter-box styling */
+
+.filter-topic-container {
+  order: 1;
+  width: 70vw;
+  background-color: turquoise;
+  display: flex;
+  flex-direction: column;
+}
+.filter-topic-header {
+  order: 1;
+  background-color: orange;
+}
+.filter-topic-topics {
+  order: 2;
+  background-color: salmon;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.filter-topic-topic {
+  background-color: red;
+}
+
+/* articles styling */
+.articles {
+  order: 2;
+  width: 100%;
+}
+
+/*article-box styling*/
+.article-box {
+  border: black solid 1px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 50% 20% 30%;
+  grid-template-areas:
+    "title topic" "post-info post-info"
+    "comments-votes vote-area";
+  position: relative;
+  margin: 10px;
+}
+
+.article-box-title {
+  grid-area: title;
+  background-color: red;
+  padding-bottom: 10%;
+  margin: 0;
+}
+.article-box-topic {
+  grid-area: topic;
+  background-color: pink;
+  text-align: right;
+  margin: 0;
+  padding: 0px 2px 0px 0px;
+}
+.article-box-post-info {
+  grid-area: post-info;
+  background-color: yellow;
+  margin: 0;
+}
+.article-box-count-area {
+  display: flex;
+  grid-area: comments-votes;
+  background-color: green;
+  margin: 0;
+  align-items: flex-end;
+}
+
+.article-box-votes {
+  display: flex;
+  grid-area: vote-area;
+  background-color: blue;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 0;
 }
 
-.App-link {
-  color: #61dafb;
+/* footer styling */
+.footer-section {
+  order: 3;
+  height: 10vh;
+  background-color: mediumspringgreen;
+  width: 50vw;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* thread-container styling */
+
+.thread-container {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  height: 100%;
+  align-items: center;
+  padding-top: 11vh;
+}
+.thread-column {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  font-size: 1.1vw;
+}
+/* thread-article-box-styling */
+
+.article-body-box {
+  order: 1;
+  background-color: yellow;
+  border: black solid 1px;
+  display: grid;
+  grid-template-areas: "title topic" "body body" "posted_by posted_by" "comments_votes buttons";
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 25% 45% 17% 13%;
+  height: 100%;
+  margin: 0;
+}
+.article-body-body {
+  grid-area: body;
+  background-color: pink;
+  height: 90%;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 2%;
+  padding-bottom: 1.5%;
+  font-size: 1.1vw;
+}
+.article-body-box-title {
+  grid-area: title;
+  background-color: orange;
+  margin: 0;
+  width: 100%;
+}
+.article-body-box-topic {
+  grid-area: topic;
+  background-color: steelblue;
+  margin: 0;
+  width: 100%;
+  font-size: 2.1vw;
+  display: flex;
+  justify-content: flex-end;
+}
+.article-body-box-post-info {
+  grid-area: posted_by;
+  background-color: green;
+  margin-top: 2%;
+  padding-bottom: 6%;
+  padding-top: 1%;
+}
+.article-body-box-count-area {
+  grid-area: comments_votes;
+  background-color: red;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.article-body-box-votes {
+  grid-area: buttons;
+  background-color: lightcoral;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+/* thread input-area styling */
+
+.article-comment-box-area {
+  order: 2;
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1vw;
+  align-items: center;
+}
+
+.article-comment-box-header {
+  order: 1;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.article-comment-box-form {
+  order: 2;
+  width: 90%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+.article-comment-box-input {
+  order: 1;
+  width: 100%;
+  height: 75%;
+}
+
+/* thread comment-list styling */
+
+.article-comment-list {
+  order: 3;
+  background-color: pink;
+}
+
+.comment-box {
+  display: flex;
+  flex-direction: column;
+}
+.comment-box-body {
+  order: 1;
+}
+.comment-box-info {
+  order: 2;
+  display: flex;
+  flex-direction: row;
+}
+.comment-box-author {
+  width: 60%;
+  order: 1;
+}
+.comment-box-votes-info {
+  width: 15%;
+  order: 2;
+}
+.comment-box-vote-buttons {
+  width: 25%;
+  order: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+.comment-box-button{
+  width: 45%;
+  height: 50%;
+}
+.article-page-footer{
+  order: 4;
+  height: 10vh;
+  background-color: mediumspringgreen;
+  width: 50vw;
 }
