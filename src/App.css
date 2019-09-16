@@ -18,15 +18,51 @@
 .user-details {
   order: 2;
   flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
   background-color: yellow;
   margin: 0;
-  padding: 20px 0px 0px 0px;
+  min-width: 50%;
+}
+.top-bar-message {
+  order: 1;
 }
 .login-section {
   order: 3;
   flex-grow: 1;
   background-color: greenyellow;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  min-width: 50%;
 }
+.login-dropdown {
+  order: 2;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+}
+.login-dropdown-message {
+  order: 1;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+}
+.login-request-message{
+  order: 2;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: yellow;
+  margin: 0;
+  padding-left: 1%;
+}
+
 .link {
   text-decoration: none;
   color: black;
@@ -68,6 +104,11 @@ button {
 #article-comment-box-button {
   width: 10%;
   height: 11%;
+  order: 2;
+}
+#logout-button {
+  width: 40%;
+  height: 41%;
   order: 2;
 }
 
@@ -175,59 +216,69 @@ button {
   font-size: 1.1vw;
 }
 /* thread-article-box-styling */
-
 .article-body-box {
   order: 1;
   background-color: yellow;
   border: black solid 1px;
-  display: grid;
-  grid-template-areas: "title topic" "body body" "posted_by posted_by" "comments_votes buttons";
-  grid-template-columns: 70% 30%;
-  grid-template-rows: 25% 45% 17% 13%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 30vh;
   margin: 0;
 }
-.article-body-body {
-  grid-area: body;
-  background-color: pink;
-  height: 90%;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 2%;
-  padding-bottom: 1.5%;
-  font-size: 1.1vw;
+.article-body-header {
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  min-height: 8vh;
 }
 .article-body-box-title {
-  grid-area: title;
+  order: 1;
   background-color: orange;
   margin: 0;
   width: 100%;
+  font-size: 80%;
 }
 .article-body-box-topic {
-  grid-area: topic;
+  order: 2;
   background-color: steelblue;
   margin: 0;
   width: 100%;
-  font-size: 2.1vw;
+  font-size: 120%;
   display: flex;
   justify-content: flex-end;
+  height: 100%;
 }
+.article-body-body {
+  order: 2;
+  grid-area: body;
+  background-color: pink;
+  height: 80%;
+  margin-top: 0;
+  font-size: calc(0.5em + 0.5vw);
+}
+
 .article-body-box-post-info {
-  grid-area: posted_by;
+  order: 3;
   background-color: green;
-  margin-top: 2%;
-  padding-bottom: 6%;
-  padding-top: 1%;
+  margin: 0;
+  max-height: 6vh;
+}
+.article-body-box-footer {
+  order: 4;
+  display: grid;
+  grid-template-areas: "count votes";
+  grid-template-columns: 50% 50%;
 }
 .article-body-box-count-area {
-  grid-area: comments_votes;
+  grid-area: count;
   background-color: red;
   margin: 0;
   display: flex;
   align-items: center;
+  max-height: 6vh;
 }
 .article-body-box-votes {
-  grid-area: buttons;
+  grid-area: votes;
   background-color: lightcoral;
   display: flex;
   align-items: center;
@@ -287,11 +338,11 @@ button {
   flex-direction: row;
 }
 .comment-box-author {
-  width: 60%;
+  width: 58%;
   order: 1;
 }
 .comment-box-votes-info {
-  width: 15%;
+  width: 13%;
   order: 2;
 }
 .comment-box-vote-buttons {
@@ -302,11 +353,11 @@ button {
   justify-content: center;
   margin: 0;
 }
-.comment-box-button{
+.comment-box-button {
   width: 45%;
   height: 50%;
 }
-.article-page-footer{
+.article-page-footer {
   order: 4;
   height: 10vh;
   background-color: mediumspringgreen;

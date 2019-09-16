@@ -32,8 +32,8 @@ class ArticlePage extends React.Component {
   }
 
   postNewComment = body => {
-    const { article_id } = this.props;
-    const newComment = { username: "tickle122", body };
+    const { article_id, user } = this.props;
+    const newComment = { username: user.username, body };
     const endpoint = `articles/${article_id}/comments`;
     api.addData(endpoint, newComment).then(({ comment }) => {
       this.setState({ newComment: comment });
@@ -47,16 +47,17 @@ class ArticlePage extends React.Component {
 
   render() {
     const { article, newComment, page } = this.state;
-    const { article_id } = this.props;
+    const { article_id, user } = this.props;
     return (
       <div className="thread-container">
         <div className="thread-column">
           <ArticleBody article={article} newComment={newComment} />
-          <CommentBox postNewComment={this.postNewComment} />
+          <CommentBox postNewComment={this.postNewComment} user={user} />
           <CommentList
             article_id={article_id}
             newComment={newComment}
             page={page}
+            user={user}
           />
         </div>
         <div className="article-page-footer">

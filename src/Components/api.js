@@ -1,15 +1,20 @@
 import axios from "axios";
 
-const baseURL = "https://joe-nc-news.herokuapp.com/api/";
+const request = axios.create({
+  baseURL: "https://joe-nc-news.herokuapp.com/api/"
+});
 
-export const getData = url => {
-    return axios.get(`${baseURL}${url}`).then(({data}) => {
-        return data;
-    })
-}
+export const getData = async (url, params) => {
+  const { data } = await request.get(`${url}`, params);
+  return data;
+};
 
-export const addData = (url, body) => {
-    return axios.post(`${baseURL}${url}`, body).then(({data}) => {
-        return data;
-    })
+export const addData = async (url, body) => {
+  const { data } = await request.post(`${url}`, body);
+  return data;
+};
+
+export const removeData = async (url) => {
+  const {data} = await request.delete(url)
+  return data;
 }

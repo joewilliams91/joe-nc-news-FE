@@ -5,6 +5,7 @@ export default class Comment extends Component {
     votes: 0,
     hasVoted: false
   };
+
   render() {
     const {
       comment_id,
@@ -14,6 +15,7 @@ export default class Comment extends Component {
       created_at,
       body
     } = this.props.comment;
+    const { username } = this.props.user;
     return (
       <div className="comment-box" key={comment_id}>
         <p className="comment-box-body">{body}</p>
@@ -24,8 +26,16 @@ export default class Comment extends Component {
           </p>
           <p className="comment-box-votes-info">Votes: {votes}</p>
           <div className="comment-box-vote-buttons">
-            <button className="comment-box-button">Upvote</button> ||{" "}
+            <button className="comment-box-button">Upvote</button>
             <button className="comment-box-button">Downvote</button>
+            {username === author && (
+              <button
+                onClick={() => this.props.deleteComment(comment_id)}
+                className="comment-box-button"
+              >
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>
