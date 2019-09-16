@@ -15,13 +15,34 @@ class Articles extends React.Component {
 
   fetchArticles = () => {
     const { topic_id } = this.props;
+    const params = { params: { topic: topic_id } };
+    const endpoint = "articles";
+    api.getData(endpoint, params).then(({ articles, total_count }) => {
+      this.setState({
+        articles,
+        total_count,
+        selectedParams: {},
+        page: 1,
+        isLoading: false
+      });
+    });
+  };
+
+  sortArticles = () => {
+    const { topic_id } = this.props;
     const { selectedParams } = this.state;
     const params = { params: { ...selectedParams, topic: topic_id } };
     const endpoint = "articles";
     api.getData(endpoint, params).then(({ articles, total_count }) => {
-      this.setState({ articles, total_count, page: 1, isLoading: false });
+      this.setState({
+        articles,
+        total_count,
+        page: 1,
+        isLoading: false
+      });
     });
   };
+
   fetchMoreArticles = () => {
     const { topic_id } = this.props;
     const { page, selectedParams } = this.state;
@@ -43,13 +64,13 @@ class Articles extends React.Component {
     this.fetchArticles();
   }
   componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.topic_id !== this.props.topic_id ||
-      (prevState.selectedParams.sort_by !== this.state.selectedParams.sort_by ||
-        prevState.selectedParams.order !== this.state.selectedParams.order)
-    ) {
-      
+    if (prevProps.topic_id !== this.props.topic_id) {
       this.fetchArticles();
+    } else if (
+      prevState.selectedParams.sort_by !== this.state.selectedParams.sort_by ||
+      prevState.selectedParams.order !== this.state.selectedParams.order
+    ) {
+      this.sortArticles();
     } else if (
       prevState.page !== this.state.page &&
       this.state.page - prevState.page === 1
@@ -61,18 +82,20 @@ class Articles extends React.Component {
     const newPage = this.state.page + 1;
     this.setState({ page: newPage });
   };
+  
   articleSort = selectedParams => {
-    this.setState({ selectedParams }, () => {
-      console.log(this.state.selectedParams);
-    });
+    this.setState({ selectedParams });
   };
 
   render() {
-    const { articles, isLoading } = this.state;
+    const { articles, isLoading, selectedParams } = this.state;
     return (
       <div className="articles-container">
         <div className="articles-column">
-          <ArticlesFilter articleSort={this.articleSort} />
+          <ArticlesFilter
+            articleSort={this.articleSort}
+            selectedParams={selectedParams}
+          />
           {isLoading === false ? (
             <div className="articles">
               {articles.map(article => {

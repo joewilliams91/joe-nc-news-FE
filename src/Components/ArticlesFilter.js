@@ -20,6 +20,7 @@ export default class ArticlesFilter extends Component {
   };
   render() {
     const { topics } = this.state;
+    const { selectedParams } = this.props;
     return (
       <div className="filter-topic-container">
         <p className="filter-topic-header">Filter by topic:</p>
@@ -39,8 +40,8 @@ export default class ArticlesFilter extends Component {
         <p className="sort-bar-header">Sort articles:</p>
         <div className="sort-bar">
           <form className="login-dropdown">
-            <select onChange={this.sortBy}>
-              <option value="">--Sort by--</option>
+            <select onChange={this.sortBy} value={JSON.stringify(selectedParams)}>
+              <option value={JSON.stringify({})}>--Sort by--</option>
               <option
                 value={JSON.stringify({ sort_by: "created_at", order: "desc" })}
               >
