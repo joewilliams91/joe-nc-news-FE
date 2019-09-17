@@ -15,6 +15,9 @@
   margin: 0;
   padding: 10px 0px 0px 0px;
 }
+.user-url{
+  max-height: 7vh;
+}
 .user-details {
   order: 2;
   flex-grow: 1;
@@ -66,6 +69,9 @@
 .link {
   text-decoration: none;
   color: black;
+}
+.error-message{
+  padding-top: 11vh;
 }
 /* article-container styling*/
 .articles-container {

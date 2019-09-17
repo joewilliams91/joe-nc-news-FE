@@ -29,6 +29,11 @@ class Article extends React.Component {
     const { votes } = this.props.article;
     this.setState({ votes });
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.user.username !== this.props.user.username) {
+      this.setState({ hasVoted: false });
+    }
+  }
 
   render() {
     const { user } = this.props;

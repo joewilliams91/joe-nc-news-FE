@@ -7,7 +7,7 @@ export default class ArticlesFilter extends Component {
     topics: []
   };
   fetchData = () => {
-    api.getData("topics").then(({ topics }) => {
+    api.getTopics().then(({ topics }) => {
       this.setState({ topics });
     });
   };

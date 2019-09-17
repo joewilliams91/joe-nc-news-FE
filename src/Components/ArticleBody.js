@@ -5,15 +5,22 @@ import * as api from "./api";
 export default class ArticleBody extends Component {
   state = {
     article: {},
+    err: null,
     hasVoted: false,
     isLoading: true
   };
 
   fetchData = () => {
-    const { article_id } = this.props;
-    api.getArticle(article_id).then(({ article }) => {
-      this.setState({ article, isLoading: false });
-    });
+    const { article_id, errorAdder } = this.props;
+    api
+      .getArticle(article_id)
+      .then(({ article }) => {
+        this.setState({ article, isLoading: false });
+      })
+      .catch(({ response }) => {
+        errorAdder(response);
+        console.dir(response)
+      });
   };
 
   articleVote = event => {
@@ -54,51 +61,60 @@ export default class ArticleBody extends Component {
     } = this.state.article;
     const { isLoading, hasVoted } = this.state;
     const { username } = this.props.user;
-    return isLoading ? (
-      <p>Loading</p>
-    ) : (
-      <div className="article-body-box" key={article_id}>
-        <div className="article-body-header">
-          <div className="article-body-box-title">
-            <h1>{title}</h1>
+    if (isLoading) {
+      return (
+        <div className="article-body-box" key={article_id}>
+          <div className="article-body-body">
+            <h2 id="article-body-body-text">Loading...</h2>
           </div>
-          <Link to={`/topics/${topic}`} className="article-body-box-topic">
-            <h3>NC/{topic}</h3>
-          </Link>
         </div>
-        <div className="article-body-box-post-info">
-          <h4>
-            Posted by {author} on {new Date(created_at).toString().slice(0, 24)}
-          </h4>
-        </div>
-
-        <div className="article-body-body">
-          <p id="article-body-body-text">{body}</p>
-        </div>
-        <div className="article-body-box-footer">
-          <div className="article-body-box-count-area">
-            <p>
-              Comments: {comment_count} Votes: {votes}
-            </p>
+      );
+    } else {
+      return (
+        <div className="article-body-box" key={article_id}>
+          <div className="article-body-header">
+            <div className="article-body-box-title">
+              <h1>{title}</h1>
+            </div>
+            <Link to={`/topics/${topic}`} className="article-body-box-topic">
+              <h3>NC/{topic}</h3>
+            </Link>
+          </div>
+          <div className="article-body-box-post-info">
+            <h4>
+              Posted by {author} on{" "}
+              {new Date(created_at).toString().slice(0, 24)}
+            </h4>
           </div>
 
-          <div className="article-body-box-votes">
-            <button
-              value="1"
-              onClick={!hasVoted && username ? this.articleVote : null}
-            >
-              Upvote
-            </button>{" "}
-            ||{" "}
-            <button
-              value="-1"
-              onClick={!hasVoted && username ? this.articleVote : null}
-            >
-              Downvote
-            </button>
+          <div className="article-body-body">
+            <p id="article-body-body-text">{body}</p>
+          </div>
+          <div className="article-body-box-footer">
+            <div className="article-body-box-count-area">
+              <p>
+                Comments: {comment_count} Votes: {votes}
+              </p>
+            </div>
+
+            <div className="article-body-box-votes">
+              <button
+                value="1"
+                onClick={!hasVoted && username ? this.articleVote : null}
+              >
+                Upvote
+              </button>{" "}
+              ||{" "}
+              <button
+                value="-1"
+                onClick={!hasVoted && username ? this.articleVote : null}
+              >
+                Downvote
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }

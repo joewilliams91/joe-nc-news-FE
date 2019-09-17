@@ -4,15 +4,20 @@ const request = axios.create({
   baseURL: "https://joe-nc-news.herokuapp.com/api/"
 });
 
-export const getData = async (url, params) => {
-  const { data } = await request.get(`${url}`, params);
-  return data;
-};
-
 export const getArticles = async params => {
   const { data } = await request.get("articles", params);
   return data;
 };
+
+export const getUser = async (username) => {
+  const { data } = await request.get(`users/${username}`);
+  return data;
+}
+
+export const getTopics = async () => {
+  const { data } = await request.get('topics');
+  return data;
+}
 
 export const getArticle = async article_id => {
   const { data } = await request.get(`articles/${article_id}`);

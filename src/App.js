@@ -4,6 +4,7 @@ import { Router } from "@reach/router";
 import TopBar from "./Components/TopBar";
 import Articles from "./Components/Articles";
 import ArticlePage from "./Components/ArticlePage";
+import ErrorHandler from "./Components/ErrorHandler"
 
 class App extends React.Component {
   state = {
@@ -24,8 +25,8 @@ class App extends React.Component {
           <Articles user={user} path="/" className="articles" />
           <Articles user={user} path="/topics/:topic_id" />
           <ArticlePage user={user} path="article/:article_id" />
-          {/* <ErrorHandler default status={404} msg="Page not found" Or do conditional rendering in errorHandler /> */}
-        </Router>
+          <ErrorHandler default status={404} msg="Page not found" />
+          </Router>
       </div>
     );
   }
