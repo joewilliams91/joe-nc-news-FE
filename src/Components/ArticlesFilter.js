@@ -25,13 +25,13 @@ export default class ArticlesFilter extends Component {
       <div className="filter-topic-container">
         <p className="filter-topic-header">Filter by topic:</p>
         <div className="filter-topic-topics">
-          <Link to={`/`} className="filter-topic-topic" className="link">
+          <Link to={`/`} className="filter-topic-topic link">
             <p>All topics</p>
           </Link>
           {topics.map(topic => {
             const { slug } = topic;
             return (
-              <Link to={`/topics/${slug}`} className="filter-topic-topic">
+              <Link to={`/topics/${slug}`} key={slug} className="filter-topic-topic">
                 <p>{slug.slice(0, 1).toUpperCase() + slug.slice(1)}</p>
               </Link>
             );

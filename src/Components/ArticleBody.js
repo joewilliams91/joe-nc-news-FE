@@ -1,7 +1,46 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
+import * as api from "./api";
 
 export default class ArticleBody extends Component {
+  state = {
+    article: {},
+    hasVoted: false,
+    isLoading: true
+  };
+
+  fetchData = () => {
+    const { article_id } = this.props;
+    api.getArticle(article_id).then(({ article }) => {
+      this.setState({ article, isLoading: false });
+    });
+  };
+
+  articleVote = event => {
+    event.preventDefault();
+    const { article_id } = this.props;
+    const inc_votes = +event.target.value;
+    const patch = { inc_votes };
+    api.patchArticle(article_id, patch).then(data => {
+      this.setState({ hasVoted: true });
+    });
+  };
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.newComment !== this.props.newComment ||
+      prevProps.deletedComment !== this.props.deletedComment ||
+      prevState.hasVoted !== this.state.hasVoted ||
+      prevState.hasVoted !== this.state.hasVoted
+    ) {
+      this.fetchData();
+    }
+  }
+
   render() {
     const {
       author,
@@ -12,8 +51,12 @@ export default class ArticleBody extends Component {
       created_at,
       votes,
       comment_count
-    } = this.props.article;
-    return (
+    } = this.state.article;
+    const { isLoading, hasVoted } = this.state;
+    const { username } = this.props.user;
+    return isLoading ? (
+      <p>Loading</p>
+    ) : (
       <div className="article-body-box" key={article_id}>
         <div className="article-body-header">
           <div className="article-body-box-title">
@@ -40,7 +83,19 @@ export default class ArticleBody extends Component {
           </div>
 
           <div className="article-body-box-votes">
-            <button>Upvote</button> || <button>Downvote</button>
+            <button
+              value="1"
+              onClick={!hasVoted && username ? this.articleVote : null}
+            >
+              Upvote
+            </button>{" "}
+            ||{" "}
+            <button
+              value="-1"
+              onClick={!hasVoted && username ? this.articleVote : null}
+            >
+              Downvote
+            </button>
           </div>
         </div>
       </div>

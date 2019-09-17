@@ -21,9 +21,10 @@ class App extends React.Component {
       <div className="App">
         <TopBar logout={this.logout} login={this.login} />
         <Router>
-          <Articles user={user} path="/*" className="articles" />
+          <Articles user={user} path="/" className="articles" />
           <Articles user={user} path="/topics/:topic_id" />
           <ArticlePage user={user} path="article/:article_id" />
+          {/* <ErrorHandler default status={404} msg="Page not found" Or do conditional rendering in errorHandler /> */}
         </Router>
       </div>
     );

@@ -1,7 +1,6 @@
 import React from "react";
 import * as api from "./api";
 import Article from "./Article";
-import { Link } from "@reach/router";
 import ArticlesFilter from "./ArticlesFilter";
 
 class Articles extends React.Component {
@@ -16,8 +15,7 @@ class Articles extends React.Component {
   fetchArticles = () => {
     const { topic_id } = this.props;
     const params = { params: { topic: topic_id } };
-    const endpoint = "articles";
-    api.getData(endpoint, params).then(({ articles, total_count }) => {
+    api.getArticles(params).then(({ articles, total_count }) => {
       this.setState({
         articles,
         total_count,
@@ -32,8 +30,7 @@ class Articles extends React.Component {
     const { topic_id } = this.props;
     const { selectedParams } = this.state;
     const params = { params: { ...selectedParams, topic: topic_id } };
-    const endpoint = "articles";
-    api.getData(endpoint, params).then(({ articles, total_count }) => {
+    api.getArticles(params).then(({ articles, total_count }) => {
       this.setState({
         articles,
         total_count,
@@ -47,8 +44,7 @@ class Articles extends React.Component {
     const { topic_id } = this.props;
     const { page, selectedParams } = this.state;
     const params = { params: { ...selectedParams, topic: topic_id, p: page } };
-    const endpoint = "articles";
-    api.getData(endpoint, params).then(({ articles, total_count }) => {
+    api.getArticles(params).then(({ articles, total_count }) => {
       this.setState(currentState => {
         const newState = {
           ...currentState,
@@ -63,6 +59,7 @@ class Articles extends React.Component {
   componentDidMount() {
     this.fetchArticles();
   }
+  
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.topic_id !== this.props.topic_id) {
       this.fetchArticles();
@@ -82,13 +79,14 @@ class Articles extends React.Component {
     const newPage = this.state.page + 1;
     this.setState({ page: newPage });
   };
-  
+
   articleSort = selectedParams => {
     this.setState({ selectedParams });
   };
 
   render() {
     const { articles, isLoading, selectedParams } = this.state;
+    const { user } = this.props;
     return (
       <div className="articles-container">
         <div className="articles-column">
@@ -102,9 +100,7 @@ class Articles extends React.Component {
                 const { article_id } = article;
                 return (
                   <>
-                    <Link className="link" to={`/article/${article_id}`}>
-                      <Article article={article} key={article_id} />
-                    </Link>
+                    <Article user={user} article={article} key={article_id} />
                   </>
                 );
               })}

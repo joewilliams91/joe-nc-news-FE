@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as api from "./api";
 
 export default class CommentBox extends Component {
   state = {
@@ -11,11 +12,17 @@ export default class CommentBox extends Component {
   };
   addNewComment = event => {
     event.preventDefault();
-    this.props.postNewComment(this.state.commentBody);
-    this.setState({ commentBody: "" });
+    const { article_id, user, newCommentAdder } = this.props;
+    const { commentBody } = this.state;
+    const newComment = { username: user.username, body: commentBody };
+    api.addComment(article_id, newComment).then(({ comment }) => {
+      this.setState({ commentBody: "" });
+      newCommentAdder(comment);
+    });
   };
 
   render() {
+    const { commentBody } = this.state;
     return (
       <div className="article-comment-box-area">
         <h2 className="article-comment-box-header">Leave a comment: </h2>
@@ -25,23 +32,19 @@ export default class CommentBox extends Component {
             onSubmit={this.addNewComment}
           >
             <textarea
-            placeholder="Leave a comment..."
-              value={this.state.commentBody}
+              placeholder="Leave a comment..."
+              value={commentBody}
               onChange={this.handleInput}
               className="article-comment-box-input"
             ></textarea>
             <button id="article-comment-box-button">Post</button>
           </form>
         ) : (
-          <form
-            className="article-comment-box-form"
-            onSubmit={this.addNewComment}
-          >
+          <form className="article-comment-box-form">
             <textarea
               readOnly
               placeholder="Please login to leave a comment!"
               value={this.state.commentBody}
-              onChange={this.handleInput}
               className="article-comment-box-input"
             ></textarea>
           </form>
