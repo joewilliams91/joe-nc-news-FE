@@ -11,15 +11,16 @@ export default class ArticleBody extends Component {
   };
 
   fetchData = () => {
-    const { article_id, errorAdder } = this.props;
+    const { article_id, errorAdder, getCommentCount } = this.props;
     api
       .getArticle(article_id)
       .then(({ article }) => {
+        const { comment_count } = article;
         this.setState({ article, isLoading: false });
+        getCommentCount(comment_count);
       })
       .catch(({ response }) => {
         errorAdder(response);
-        console.dir(response)
       });
   };
 

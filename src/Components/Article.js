@@ -48,32 +48,38 @@ class Article extends React.Component {
     const { hasVoted, votes } = this.state;
     return (
       <div className="article-box" key={article_id}>
-        <Link className="link" to={`/article/${article_id}`}>
-          <h2 className="article-box-title">{title}</h2>
-        </Link>
-        <h3 className="article-box-topic">NC/{topic}</h3>
+        <div className="article-box-header">
+          <Link className="article-box-title" to={`/article/${article_id}`}>
+            <h2 className="link">{title}</h2>
+          </Link>
+          <div className="article-box-topic">
+            <h3>NC/{topic}</h3>
+          </div>
+        </div>
         <h4 className="article-box-post-info">
           Posted by {author} on {new Date(created_at).toString().slice(0, 24)}
         </h4>
-        <p className="article-box-count-area">
-          Comments: {comment_count} Votes: {votes}
-        </p>
-        <div className="article-box-votes">
-          <button
-            onClick={!hasVoted && user.username ? this.articleVote : null}
-            className="button"
-            value="1"
-          >
-            Upvote
-          </button>{" "}
-          ||{" "}
-          <button
-            onClick={!hasVoted && user.username ? this.articleVote : null}
-            value="-1"
-            className="button"
-          >
-            Downvote
-          </button>
+        <div className="article-box-voting">
+          <p className="article-box-count-area">
+            Comments: {comment_count} Votes: {votes}
+          </p>
+          <div className="article-box-votes">
+            <button
+              onClick={!hasVoted && user.username ? this.articleVote : null}
+              className="button"
+              value="1"
+            >
+              Upvote
+            </button>{" "}
+            ||{" "}
+            <button
+              onClick={!hasVoted && user.username ? this.articleVote : null}
+              value="-1"
+              className="button"
+            >
+              Downvote
+            </button>
+          </div>
         </div>
       </div>
     );

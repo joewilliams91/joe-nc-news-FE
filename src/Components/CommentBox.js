@@ -25,7 +25,9 @@ export default class CommentBox extends Component {
     const { commentBody } = this.state;
     return (
       <div className="article-comment-box-area">
-        <h2 className="article-comment-box-header">Leave a comment: </h2>
+        <div className="article-comment-box-header">
+          <h2>Leave a comment: </h2>
+        </div>
         {this.props.user.username ? (
           <form
             className="article-comment-box-form"

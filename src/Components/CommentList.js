@@ -78,13 +78,18 @@ export default class CommentList extends Component {
 
   render() {
     const { comments, isLoading, selectedParams, page } = this.state;
-    const { user, article } = this.props;
+    const { user, article_id, commentCount } = this.props;
     return isLoading === false ? (
       <div className="article-comment-list">
-        <CommentSort
-          commentSort={this.commentSort}
-          selectedParams={selectedParams}
-        />
+        <div className="comments-header">
+          <h3 className="comments-title">Comments:</h3>
+          <div className="comments-sort-bar">
+            <CommentSort
+              commentSort={this.commentSort}
+              selectedParams={selectedParams}
+            />
+          </div>
+        </div>
         {comments.map(comment => {
           return (
             <Comment
@@ -96,7 +101,7 @@ export default class CommentList extends Component {
           );
         })}
         <div className="article-page-footer">
-          {article && (page - 1) * 10 < +article.comment_count ? (
+          {commentCount && page * 10 < +commentCount ? (
             <button onClick={this.nextPage} id="load-more-comments-button">
               Load More
             </button>

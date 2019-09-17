@@ -64,7 +64,7 @@ class TopBar extends React.Component {
                 <option value="tickle122">tickle122</option>
                 <option value="cooljmessy">cooljmessy</option>
               </select>
-              <button className="login-button" type="submit" value="submit">
+              <button id="login-button" type="submit" value="submit">
                 Login
               </button>
             </form>
