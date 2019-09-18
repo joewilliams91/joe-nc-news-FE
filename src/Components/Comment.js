@@ -19,10 +19,16 @@ export default class Comment extends Component {
       return newState;
     });
 
-    api.patchComment(comment_id, patch).then(err => {
+    api.patchComment(comment_id, patch).catch(err => {
       this.setState({ err });
     });
   };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.comment.votes !== this.props.comment.votes) {
+      this.setState({ vote: 0 });
+    }
+  }
 
   render() {
     const { comment_id, author, created_at, body, votes } = this.props.comment;
@@ -67,15 +73,17 @@ export default class Comment extends Component {
             >
               <Icon icon="down" />
             </button>
-            {username === author && (
-              <button
-                onClick={() => this.props.deleteComment(comment_id)}
-                className="comment-box-button"
-              >
-                Delete
-              </button>
-            )}
           </div>
+          {username === author && (
+            <div className="delete-button-area">
+              <button
+                className="delete-button"
+                onClick={() => this.props.deleteComment(comment_id)}
+              >
+                <Icon icon="delete" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     );

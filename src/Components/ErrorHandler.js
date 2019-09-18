@@ -6,7 +6,7 @@ export default function ErrorHandler({ status, data }) {
       <div className="error-message-box">
       <p>
         {status ? status : 404} : {data ? data.msg : "Page not found"}
-      </p>i
+      </p>
       </div>
      
     </div>

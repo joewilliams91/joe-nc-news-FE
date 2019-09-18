@@ -35,7 +35,7 @@
   background-color: grey;
   border-bottom: red solid 4px;
   margin: 0;
-  min-width: 35%;
+  min-width: 40%;
 }
 .top-bar-message {
   order: 1;
@@ -48,7 +48,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  min-width: 45%;
+  min-width: 54%;
 }
 .login-dropdown {
   order: 2;
@@ -98,127 +98,7 @@
   font-size: 1.1vw;
   padding-bottom: 4%;
 }
-@media only screen and (max-width: 768px) {
-  .logo {
-    min-width: 40%;
-  }
-  .login-section {
-    min-width: 50%;
-  }
-  .articles-column {
-    width: 55vh;
-    font-size: 1.6vw;
-  }
-  .articles-container {
-    padding-top: 6.5vh;
-    max-width: 100%;
-  }
-  .thread-column {
-    min-width: 55vh;
-  }
-  .thread-container {
-    margin-top: 0;
-    padding-top: 7vh !important;
-  }
-  .thread-vote-button{
-    max-height: 5vh;
-  }
-  .article-body-box {
-    font-size: 2.3vw;
-    min-height: 27vh !important;
-  }
-  .article-body-icon {
-    padding-top: 4.2% !important;
-    max-width: 15%;
-    padding-left: 4.2% !important;
-  }
-  .article-body-box-title {
-    width: 96% !important;
-  }
-  .article-body-box-content{
-    max-height: 8vh;
-  }
-  .article-body-body{
-    padding-left: 1% !important;
-    padding-right: 1% !important;
-  }
-  .article-body-box-count-area{
-    max-height: 1.5vh;
-    padding-top: 2.8%;
-  }
-  .article-body-box-post-info{
-    padding-top: 1.8% !important
-  }
-  .article-body-box-votes{
-    padding-top: 2%;
-  }
-  .article-body-box-footer{
-    padding-top: 1%;
-  }
-  .article-body-box-votes{
-    max-height: 5vh;
-  }
-  .article-comment-box-header {
-    font-size: 2.3vw;
-  }
-  .article-body-header {
-    max-height: 17vh !important;
-    padding-right: 2%;
-  }
-  .comment-sort{
-    width: 18vw;
-  }
-  .comments-header {
-    font-size: 2.5vw;
-    min-height: 5vh !important;
-  }
-  .comment-box {
-    font-size: 2vw;
-  }
-  .comment-box-votes-info {
-    width: 10vw !important;
-  }
-  .comment-box-body {
-    margin-bottom: 1%;
-  }
-  .comment-box-vote-buttons {
-    max-height: 6vh;
-  }
-  .comment-box-info-content {
-    padding-top: 2.5%;
-    max-height: 6vh;
-  }
-  .comments-title {
-    margin: 0;
-  }
-  .filter-dropdown-bar {
-    width: 13vw;
-  }
-  .topbar {
-    width: 100%;
-    font-size: 1.8vw;
-  }
-  .filter-topic-container {
-    font-size: 1.4vh;
-  }
-  .article-box {
-    max-height: 13vh;
-  }
-  .article-box-content {
-    max-height: 5vh;
-  }
-  .article-box-post-info {
-    max-height: 5vh;
-    padding-top: 2%;
-    padding-bottom: 0.75%;
-  }
-  .article-box-votes {
-    max-height: 6vh;
-  }
-  .article-box-header {
-    max-height: 8vh;
-  }
-}
+
 /* button styling */
 
 button {
@@ -373,8 +253,7 @@ button {
   padding-right: 1%;
   text-decoration: underline;
   text-decoration-color: red;
-  text-underline-position: under; 
-  padding-bottom: 1%;
+  text-underline-position: under;
 }
 .article-box-content {
   padding-top: 1.5%;
@@ -458,27 +337,28 @@ button {
   order: 1;
   display: flex;
   flex-direction: row;
-  max-height: 16vh;
+  align-items: center;
+  max-height: 17.5vh;
 }
 .article-body-icon {
   order: 1;
   width: 35%;
   background-color: white;
-  padding-left: 3%;
-  padding-top: 2.5%;
+  padding-left: 5%;
+  padding-top: 8%;
   border-radius: 7px;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 5vh;
 }
 .article-body-box-title {
   order: 2;
   background-color: white;
   margin: 0;
   width: 155%;
-  font-size: 85%;
+  font-size: 80%;
   border-radius: 7px;
-  max-height: 60%;
 }
 .article-body-box-topic {
   order: 3;
@@ -486,16 +366,15 @@ button {
   border-radius: 7px;
   margin: 0;
   width: 45%;
-  font-size: 120%;
+  font-size: 112%;
   display: flex;
   justify-content: flex-end;
   height: 100%;
   color: black;
-  padding-right: 0.5%;
+  padding-right: 1.5%;
   text-decoration: underline;
   text-decoration-color: red;
-  text-underline-position: under; 
-  padding-bottom: 1%;
+  text-underline-position: under;
 }
 .article-body-body {
   border-top: red solid 2px;
@@ -508,8 +387,8 @@ button {
   height: 80%;
   margin-top: 0;
   font-size: calc(0.5em + 0.5vw);
-  padding-left: 0.5%;
-  padding-right: 0.5%;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 .article-body-box-content {
   order: 3;
@@ -518,12 +397,14 @@ button {
   background-color: white;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
+  padding-top: 1%;
 }
 
 .article-body-box-post-info {
   background-color: white;
   margin: 0;
-  padding-top: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 .article-body-box-footer {
   order: 2;
@@ -613,7 +494,7 @@ button {
 }
 .comments-title {
   order: 1;
-  min-width: 70%;
+  min-width: 50%;
   padding-left: 1vh;
 }
 .comments-sort-bar {
@@ -640,7 +521,7 @@ button {
   display: flex;
   flex-direction: row;
   background-color: white;
-  max-height: 8vh;
+  max-height: 9vh;
 }
 .comment-box-info-content {
   order: 2;
@@ -665,6 +546,21 @@ button {
   align-items: center;
   justify-content: center;
   margin: 0;
+  order: 1;
+}
+.delete-button {
+  height: 7vh;
+  width: 8vh;
+  text-align: center;
+  background-color: white;
+  border: none;
+}
+.delete-button:focus {
+  outline: none;
+}
+.delete-button-area {
+  order: 3;
+  width: 10%;
 }
 .comment-box-button {
   background-color: white;
@@ -694,15 +590,340 @@ button {
   position: relative;
   height: 88.5vh;
   align-items: center;
-  padding-top: 11vh;
   text-decoration: underline;
   text-decoration-color: red;
-  text-underline-position: under; 
-  padding-bottom: 2%;
+  text-underline-position: under;
   font-size: 5vh;
+  justify-content: center;
 }
-.error-message-box{
+.error-message-box {
   background-color: white;
   border: solid black 1px;
   border-radius: 7px;
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  height: 20vh;
+}
+
+/* media queries */
+
+@media only screen and (max-width: 768px) {
+  .topbar {
+    max-height: 6vh;
+  }
+  .user-url {
+    max-height: 5vh;
+  }
+  .logo {
+    min-width: 40%;
+  }
+  .login-section {
+    min-width: 50%;
+  }
+  .articles-column {
+    width: 55vh;
+    font-size: 1.6vw;
+  }
+  .articles-container {
+    padding-top: 6.5vh;
+    max-width: 100%;
+  }
+  .thread-column {
+    min-width: 55vh;
+  }
+  .thread-container {
+    margin-top: 0;
+    padding-top: 8.5vh !important;
+  }
+  .thread-vote-button {
+    max-height: 5vh;
+  }
+  .article-body-box {
+    font-size: 2.3vw;
+    min-height: 24vh !important;
+  }
+  .article-body-icon {
+    padding-top: 4.2% !important;
+    max-width: 15%;
+    padding-left: 4.2% !important;
+  }
+  .article-body-box-title {
+    width: 96% !important;
+    font-size: 1.5vw !important;
+  }
+  .article-body-box-content {
+    max-height: 8vh;
+  }
+  .article-body-body {
+    padding-left: 1% !important;
+    padding-right: 1% !important;
+  }
+  .article-body-box-count-area {
+    max-height: 1.5vh;
+    padding-top: 2.8%;
+  }
+  .article-body-box-post-info {
+    padding-top: 1.8% !important;
+  }
+  .article-body-box-votes {
+    padding-top: 2%;
+  }
+  .article-body-box-footer {
+    padding-top: 1%;
+  }
+  .article-body-box-votes {
+    max-height: 5vh;
+  }
+  .article-comment-box-header {
+    font-size: 2.3vw;
+  }
+  .article-body-header {
+    max-height: 17vh !important;
+    padding-right: 2%;
+  }
+  .comment-sort {
+    width: 18vw;
+  }
+  .comments-header {
+    font-size: 2.5vw;
+    min-height: 5vh !important;
+  }
+  .comment-box {
+    font-size: 2vw;
+  }
+  .comment-box-votes-info {
+    width: 10vw !important;
+  }
+  .comment-box-body {
+    margin-bottom: 1%;
+  }
+  .comment-box-vote-buttons {
+    max-height: 6vh;
+  }
+  .comment-box-info-content {
+    padding-top: 2.5%;
+    max-height: 6vh;
+  }
+  .comments-title {
+    margin: 0;
+  }
+  .filter-dropdown-bar {
+    width: 13vw;
+  }
+  .topbar {
+    width: 100%;
+    font-size: 1.8vw;
+  }
+  .filter-topic-container {
+    font-size: 1.4vh;
+  }
+  .article-box {
+    max-height: 14vh;
+  }
+  .article-box-content {
+    max-height: 7vh !important;
+    padding-top: 0 !important;
+  }
+  .article-box-post-info {
+    max-height: 5vh;
+    padding-top: 2%;
+    padding-bottom: 0.75%;
+    padding-left: 0.75%;
+  }
+  .vote-button {
+    max-height: 4vh;
+  }
+  .article-box-votes {
+    max-height: 5vh;
+    padding-top: 1.5%;
+  }
+  .article-box-header {
+    max-height: 12vh;
+  }
+  .article-box-title {
+    max-height: 12vh;
+    font-size: 1.4vh !important;
+    padding-top: 1.5%;
+    padding-bottom: 1%;
+  }
+  .error-message {
+    justify-content: flex-start !important;
+  }
+  .error-message-box {
+    width: 75vw !important;
+  }
+  .delete-button {
+    height: 3vh;
+    width: 4.5vh !important;
+  }
+}
+@media only screen and (max-width: 414px) {
+  
+  .articles-column {
+    max-width: 83vw;
+    font-size: 2.9vw;
+  }
+  .article-box {
+    min-height: 20vh;
+    max-height: 26vh;
+    padding-bottom: 2%;
+  }
+  .filter-topic-container {
+    flex-direction: column;
+    font-size: 1.8vh;
+  }
+  .filter-topic-topics {
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .article-icon{
+    padding-top: 7%;
+    padding-left: 5%;
+    height: 50%;
+  }
+  .vote-button{
+    min-height: 4.1vh;
+    min-width: 5.9vh;
+  }
+  .article-box-votes{
+    min-height: 7vh;
+    width: 7.6vh;
+    padding-top: 4%;
+  }
+  .sort-bar {
+    width: 80%;
+  }
+  .filter-dropdown-bar {
+    width: 25vw;
+  }
+  .article-box-content{
+    max-height: 14vh;
+  }
+  .article-box-header{
+    max-height: 10vh;
+    min-height: 5vh;
+    padding-bottom: 1.5%;
+  }
+  .article-icon{
+    max-height: 3.5vh;
+  }
+ .article-box-title{
+   font-size: 2.3vw !important;
+   width: 100%;
+   padding-bottom: 1%;
+   max-height: 9.5vh !important;
+   min-height: 2vh !important;
+ }
+ .article-box-topic{
+   font-size: 2.5vw !important;
+   width: 40%;
+   padding-top: 2%;
+   padding-right: 1%;
+ }
+ .login-section{
+   width: 50%;
+   justify-content: center;
+ }
+ .login-dropdown{
+   max-width: 35vw;
+ }
+ .login-dropdown-message{
+   display: flex;
+   justify-content: flex-start;
+   max-width: 20vw;
+   font-size: 2vh;
+ }
+ .logo{
+   min-width: 1vw !important;
+   max-width: 25vw !important;
+   font-size: 2.5vh;
+ }
+ #login-button{
+   height: 4vh;
+   min-width: 15vw;
+   font-size: 2vh;
+ }
+ .thread-column{
+   min-width: 85vw;
+ }
+ .article-body-box{
+   min-height: 81vh !important;
+ }
+ .article-body-box-title{
+   font-size: 2.1vw !important;
+ }
+ .article-body-box-topic{
+  font-size: 3vw !important;
+}
+ .article-body-body{
+   font-size: 3.5vw;
+ }
+ .article-body-box-content{
+   font-size: 3.2vw;
+ }
+ .user-details{
+   min-width: 73%;
+ }
+ #article-comment-box-button{
+   min-width: 20vw;
+   font-size: 2vh;
+ }
+ .article-comment-box-header{
+   font-size: 1.8vh;
+   padding-left: 20%;
+ }
+ .comment-sort{
+   width: 30vw;
+ }
+ .comments-title{
+   min-width: 15vw;
+ }
+ .comments-header{
+   justify-content: center !important;
+ }
+ .comments-sort-bar{
+   min-width: 20vw;
+ }
+ .comment-box{
+   min-height: 28.5vh !important;
+   font-size: 2vh;
+   padding-left: 2%;
+   padding-right: 2%;
+ }
+ .comment-box-button{
+  min-height: 4.1vh;
+  min-width: 12.1vw;
+  padding-top: 10%;
+  padding-right: 5%;
+ }
+ .comment-box-vote-buttons{
+   min-height: 10.5vh;
+   padding-left: 5%;
+ }
+ .thread-vote-button{
+  min-height: 5vh;
+  padding-left: 5%;
+ }
+ .article-body-box-votes{
+  min-height: 4vh;
+  min-width: 12.1vw;
+  padding-top: 10%;
+  padding-right: 5%;
+ }
+ .comment-box-votes-info{
+   min-width: 20vw;
+ }
+.comment-box-info-content{
+  padding-left: 5%;
+}
+.comment-box-info{
+  padding-top: 1%;
+}
+.article-page-footer{
+  font-size: 2.5vh;
+}
 }

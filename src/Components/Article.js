@@ -25,12 +25,13 @@ class Article extends React.Component {
   };
 
   componentDidMount() {
-    const { votes } = this.props.article;
-    this.setState({ votes });
+    this.setState({ vote: 0 });
   }
   componentDidUpdate(prevProps) {
     if (prevProps.user.username !== this.props.user.username) {
       this.setState({ hasVoted: false });
+    } else if (prevProps.article.votes !== this.props.article.votes) {
+      this.setState({ vote: 0 });
     }
   }
 
