@@ -3,6 +3,7 @@ import * as api from "./api";
 import Article from "./Article";
 import ArticlesFilter from "./ArticlesFilter";
 import ErrorHandler from "./ErrorHandler";
+import ArticleAdder from "./ArticleAdder";
 
 class Articles extends React.Component {
   state = {
@@ -11,16 +12,16 @@ class Articles extends React.Component {
     page: 1,
     isLoading: true,
     selectedParams: {},
-    err: null
+    err: null,
+    topics: [],
+    newArticle: {}
   };
 
   fetchArticles = () => {
     const { topic_id } = this.props;
     const { page, selectedParams } = this.state;
-
     if (page === 1) {
       const params = { params: { topic: topic_id } };
-
       api
         .getArticles(params)
         .then(({ articles, total_count }) => {
@@ -82,7 +83,8 @@ class Articles extends React.Component {
       prevProps.topic_id !== this.props.topic_id ||
       prevProps.user.username !== this.props.user.username ||
       (prevState.page !== this.state.page &&
-        this.state.page - prevState.page === 1)
+        this.state.page - prevState.page === 1) ||
+      prevState.newArticle.article_id !== this.state.newArticle.article_id
     ) {
       this.fetchArticles();
     }
@@ -96,8 +98,12 @@ class Articles extends React.Component {
     this.setState({ selectedParams });
   };
 
+  newArticleAdder = newArticle => {
+    this.setState({ newArticle });
+  };
+
   render() {
-    const { articles, isLoading, selectedParams, err } = this.state;
+    const { articles, isLoading, selectedParams, err, topics } = this.state;
     const { user } = this.props;
     if (err) {
       return <ErrorHandler {...err} />;
@@ -106,8 +112,15 @@ class Articles extends React.Component {
         <div className="articles-container">
           <div className="articles-column">
             <ArticlesFilter
+              topics={topics}
               articleSort={this.articleSort}
               selectedParams={selectedParams}
+            />
+            <ArticleAdder
+              addArticle={this.AddArticle}
+              user={user}
+              topics={topics}
+              newArticleAdder={this.newArticleAdder}
             />
             {isLoading === false ? (
               <div className="articles">

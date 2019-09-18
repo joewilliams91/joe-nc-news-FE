@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import * as api from "./api";
 import { Link } from "@reach/router";
+import * as api from "./api";
 
 export default class ArticlesFilter extends Component {
   state = {
     topics: []
   };
-  fetchData = () => {
+
+  fetchTopics = () => {
     api.getTopics().then(({ topics }) => {
       this.setState({ topics });
     });
   };
+
   componentDidMount() {
-    this.fetchData();
+    this.fetchTopics();
   }
   sortBy = event => {
     const sort = JSON.parse(event.target.value);
@@ -23,7 +25,6 @@ export default class ArticlesFilter extends Component {
     const { selectedParams } = this.props;
     return (
       <div className="filter-topic-container">
-        
         <div className="filter-topic-topics">
           <p>Filter by topic:</p>
           <Link to={`/`} className="filter-topic-topic">

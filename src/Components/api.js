@@ -39,6 +39,11 @@ export const addComment = async (article_id, body) => {
   return data;
 };
 
+export const addArticle = async (body) => {
+  const {data} = await request.post("articles", body);
+  return data;
+}
+
 export const patchArticle = async (article_id, body) => {
   const { data } = await request.patch(`articles/${article_id}`, body);
   return data;
