@@ -98,7 +98,7 @@ export default class ArticleAdder extends Component {
               ></textarea>
             </label>
           )}
-          {user.username && (
+          {(topic && body && title) && user.username && (
             <div className="new-article-footer">
               <button className="new-article-button">Submit</button>
             </div>
