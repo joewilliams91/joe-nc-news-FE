@@ -78,7 +78,7 @@ export default class CommentList extends Component {
 
   render() {
     const { comments, isLoading, selectedParams, page } = this.state;
-    const { user, article_id, commentCount } = this.props;
+    const { user, commentCount } = this.props;
     return isLoading === false ? (
       <div className="article-comment-list">
         <div className="comments-header">

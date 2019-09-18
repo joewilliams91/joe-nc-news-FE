@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import * as api from "./api";
+import Icon from "./Icons";
 
 export default class ArticleBody extends Component {
   state = {
     article: {},
     err: null,
-    hasVoted: false,
-    isLoading: true
+    isLoading: true,
+    vote: 0
   };
 
   fetchData = () => {
@@ -24,13 +25,18 @@ export default class ArticleBody extends Component {
       });
   };
 
-  articleVote = event => {
-    event.preventDefault();
+  articleVote = inc_votes => {
     const { article_id } = this.props;
-    const inc_votes = +event.target.value;
     const patch = { inc_votes };
-    api.patchArticle(article_id, patch).then(data => {
-      this.setState({ hasVoted: true });
+    this.setState(currentState => {
+      const newState = {
+        ...currentState,
+        vote: currentState.vote + inc_votes
+      };
+      return newState;
+    });
+    api.patchArticle(article_id, patch).catch(err => {
+      this.setState({ err });
     });
   };
 
@@ -41,9 +47,7 @@ export default class ArticleBody extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.newComment !== this.props.newComment ||
-      prevProps.deletedComment !== this.props.deletedComment ||
-      prevState.hasVoted !== this.state.hasVoted ||
-      prevState.hasVoted !== this.state.hasVoted
+      prevProps.deletedComment !== this.props.deletedComment
     ) {
       this.fetchData();
     }
@@ -60,7 +64,7 @@ export default class ArticleBody extends Component {
       votes,
       comment_count
     } = this.state.article;
-    const { isLoading, hasVoted } = this.state;
+    const { isLoading, vote } = this.state;
     const { username } = this.props.user;
     if (isLoading) {
       return (
@@ -74,6 +78,9 @@ export default class ArticleBody extends Component {
       return (
         <div className="article-body-box" key={article_id}>
           <div className="article-body-header">
+            <div className="article-body-icon">
+              <Icon icon={topic} />
+            </div>
             <div className="article-body-box-title">
               <h1>{title}</h1>
             </div>
@@ -81,37 +88,49 @@ export default class ArticleBody extends Component {
               <h3>NC/{topic}</h3>
             </Link>
           </div>
-          <div className="article-body-box-post-info">
-            <h4>
-              Posted by {author} on{" "}
-              {new Date(created_at).toString().slice(0, 24)}
-            </h4>
-          </div>
-
           <div className="article-body-body">
             <p id="article-body-body-text">{body}</p>
           </div>
-          <div className="article-body-box-footer">
-            <div className="article-body-box-count-area">
-              <p>
-                Comments: {comment_count} Votes: {votes}
-              </p>
-            </div>
-
+          <div className="article-body-box-content">
             <div className="article-body-box-votes">
               <button
+                className="thread-vote-button"
                 value="1"
-                onClick={!hasVoted && username ? this.articleVote : null}
+                onClick={
+                  vote < 1 && username
+                    ? () => {
+                        this.articleVote(1);
+                      }
+                    : null
+                }
               >
-                Upvote
-              </button>{" "}
-              ||{" "}
-              <button
-                value="-1"
-                onClick={!hasVoted && username ? this.articleVote : null}
-              >
-                Downvote
+                <Icon icon="up" />
               </button>
+              <button
+                className="thread-vote-button"
+                value="-1"
+                onClick={
+                  vote > -1 && username
+                    ? () => {
+                        this.articleVote(-1);
+                      }
+                    : null
+                }
+              >
+                <Icon icon="down" />
+              </button>
+            </div>
+            <div className="article-body-box-footer">
+              <div className="article-body-box-count-area">
+                <p>
+                  Comments: {comment_count} Votes: {votes + vote}
+                </p>
+              </div>
+
+              <h4 className="article-body-box-post-info">
+                Posted by {author} on{" "}
+                {new Date(created_at).toString().slice(0, 24)}
+              </h4>
             </div>
           </div>
         </div>

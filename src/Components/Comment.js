@@ -1,61 +1,71 @@
 import React, { Component } from "react";
 import * as api from "./api";
+import Icon from "./Icons";
 
 export default class Comment extends Component {
   state = {
-    votes: 0,
-    hasVoted: false
+    vote: 0,
+    err: null
   };
 
-  componentDidMount() {
-    const { votes } = this.props.comment;
-    this.setState({ votes });
-  }
-
-  commentVote = event => {
-    event.preventDefault();
+  commentVote = inc_votes => {
     const { comment_id } = this.props.comment;
-    const inc_votes = +event.target.value;
     const patch = { inc_votes };
-    api.patchComment(comment_id, patch).then(data => {
-      this.setState(currentState => {
-        const newState = {
-          ...currentState,
-          hasVoted: true,
-          votes: currentState.votes + inc_votes
-        };
-        return newState;
-      });
+    this.setState(currentState => {
+      const newState = {
+        ...currentState,
+        vote: currentState.vote + inc_votes
+      };
+      return newState;
+    });
+
+    api.patchComment(comment_id, patch).then(err => {
+      this.setState({ err });
     });
   };
 
   render() {
-    const { comment_id, author, created_at, body } = this.props.comment;
+    const { comment_id, author, created_at, body, votes } = this.props.comment;
     const { username } = this.props.user;
-    const { hasVoted, votes } = this.state;
+    const { vote } = this.state;
     return (
       <div className="comment-box" key={comment_id}>
         <p className="comment-box-body">{body}</p>
         <div className="comment-box-info">
-          <p className="comment-box-author">
-            Posted by: {author} on{" "}
-            {new Date(created_at).toString().slice(0, 24)}
-          </p>
-          <p className="comment-box-votes-info">Votes: {votes}</p>
+          <div className="comment-box-info-content">
+            <h4 className="comment-box-author">
+              Posted by: {author} on{" "}
+              {new Date(created_at).toString().slice(0, 24)}
+            </h4>
+            <p className="comment-box-votes-info">Votes: {votes + vote}</p>
+          </div>
+
           <div className="comment-box-vote-buttons">
             <button
-              onClick={!hasVoted && username ? this.commentVote : null}
+              onClick={
+                vote < 1 && username
+                  ? () => {
+                      this.commentVote(1);
+                    }
+                  : null
+              }
               className="comment-box-button"
               value="1"
             >
-              Upvote
+              <Icon icon="up" />
             </button>
             <button
-              onClick={!hasVoted && username ? this.commentVote : null}
+              onClick={
+                vote > -1 && username
+                  ? () => {
+                      this.commentVote(-1);
+                    }
+                  : null
+              }
               className="comment-box-button"
               value="-1"
             >
-              Downvote
+              <Icon icon="down" />
             </button>
             {username === author && (
               <button

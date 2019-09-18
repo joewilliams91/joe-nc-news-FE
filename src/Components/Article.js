@@ -1,27 +1,26 @@
 import React from "react";
 import * as api from "./api";
 import { Link } from "@reach/router";
+import Icon from "./Icons";
 
 class Article extends React.Component {
   state = {
-    hasVoted: false,
-    votes: 0
+    vote: 0,
+    err: null
   };
 
-  articleVote = event => {
-    event.preventDefault();
+  articleVote = inc_votes => {
     const { article_id } = this.props.article;
-    const inc_votes = +event.target.value;
     const patch = { inc_votes };
-    api.patchArticle(article_id, patch).then(data => {
-      this.setState(currentState => {
-        const newState = {
-          ...currentState,
-          hasVoted: true,
-          votes: currentState.votes + inc_votes
-        };
-        return newState;
-      });
+    this.setState(currentState => {
+      const newState = {
+        ...currentState,
+        vote: currentState.vote + inc_votes
+      };
+      return newState;
+    });
+    api.patchArticle(article_id, patch).catch(err => {
+      this.setState({ err });
     });
   };
 
@@ -43,12 +42,16 @@ class Article extends React.Component {
       article_id,
       topic,
       created_at,
-      comment_count
+      comment_count,
+      votes
     } = this.props.article;
-    const { hasVoted, votes } = this.state;
+    const { vote } = this.state;
     return (
       <div className="article-box" key={article_id}>
         <div className="article-box-header">
+          <div className="article-icon">
+            <Icon icon={topic} />
+          </div>
           <Link className="article-box-title" to={`/article/${article_id}`}>
             <h2 className="link">{title}</h2>
           </Link>
@@ -56,28 +59,41 @@ class Article extends React.Component {
             <h3>NC/{topic}</h3>
           </div>
         </div>
-        <h4 className="article-box-post-info">
-          Posted by {author} on {new Date(created_at).toString().slice(0, 24)}
-        </h4>
-        <div className="article-box-voting">
-          <p className="article-box-count-area">
-            Comments: {comment_count} Votes: {votes}
-          </p>
+        <div className="article-box-content">
+          <div className="article-box-post-info">
+            <h4 className="article-box-author">
+              Posted by {author} on{" "}
+              {new Date(created_at).toString().slice(0, 24)}
+            </h4>
+            <p className="article-box-count-area">
+              Comments: {comment_count} Votes: {votes + vote}
+            </p>
+          </div>
           <div className="article-box-votes">
             <button
-              onClick={!hasVoted && user.username ? this.articleVote : null}
-              className="button"
-              value="1"
+              onClick={
+                vote < 1 && user.username
+                  ? () => {
+                      this.articleVote(1);
+                    }
+                  : null
+              }
+              className="vote-button"
             >
-              Upvote
-            </button>{" "}
-            ||{" "}
+              <Icon icon="up" />
+            </button>
+
             <button
-              onClick={!hasVoted && user.username ? this.articleVote : null}
-              value="-1"
-              className="button"
+              onClick={
+                vote > -1 && user.username
+                  ? () => {
+                      this.articleVote(-1);
+                    }
+                  : null
+              }
+              className="vote-button"
             >
-              Downvote
+              <Icon icon="down" />
             </button>
           </div>
         </div>
