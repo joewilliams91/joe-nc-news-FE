@@ -8,7 +8,11 @@ export default function CommentSort({ commentSort, selectedParams }) {
   return (
     <div>
       <form>
-        <select className="comment-sort" onChange={sortBy} value={JSON.stringify(selectedParams)}>
+        <select
+          className="comment-sort"
+          onChange={sortBy}
+          value={JSON.stringify(selectedParams)}
+        >
           <option value={JSON.stringify({})}>--Sort by--</option>
           <option
             value={JSON.stringify({ sort_by: "created_at", order: "desc" })}

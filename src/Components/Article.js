@@ -11,6 +11,7 @@ class Article extends React.Component {
 
   articleVote = inc_votes => {
     const { article_id } = this.props.article;
+    const {errorAdder} = this.props;
     const patch = { inc_votes };
     this.setState(currentState => {
       const newState = {
@@ -20,7 +21,7 @@ class Article extends React.Component {
       return newState;
     });
     api.patchArticle(article_id, patch).catch(err => {
-      this.setState({ err });
+      errorAdder(err.response)
     });
   };
 

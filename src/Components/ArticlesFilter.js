@@ -8,18 +8,26 @@ export default class ArticlesFilter extends Component {
   };
 
   fetchTopics = () => {
-    api.getTopics().then(({ topics }) => {
-      this.setState({ topics });
-    });
+    const { errorAdder } = this.props;
+    api
+      .getTopics()
+      .then(({ topics }) => {
+        this.setState({ topics });
+      })
+      .catch(({ response }) => {
+        errorAdder(response);
+      });
   };
 
   componentDidMount() {
     this.fetchTopics();
   }
+
   sortBy = event => {
     const sort = JSON.parse(event.target.value);
     this.props.articleSort(sort);
   };
+
   render() {
     const { topics } = this.state;
     const { selectedParams } = this.props;

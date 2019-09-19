@@ -11,13 +11,19 @@ class TopBar extends React.Component {
   userLogin = event => {
     event.preventDefault();
     const { selectedUser } = this.state;
-    api.getUser(selectedUser).then(({ user }) => {
-      this.setState({
-        loggedInUser: user,
-        selectedUser: ""
+    const { errorAdder } = this.props;
+    api
+      .getUser(selectedUser)
+      .then(({ user }) => {
+        this.setState({
+          loggedInUser: user,
+          selectedUser: ""
+        });
+        this.props.login(user);
+      })
+      .catch(({ response }) => {
+        errorAdder(response);
       });
-      this.props.login(user);
-    });
   };
 
   userLogout = event => {
@@ -41,7 +47,11 @@ class TopBar extends React.Component {
         </h1>
         {loggedInUser.username ? (
           <div className="user-details">
-            <img className="user-url" src={loggedInUser.avatar_url} alt="user avatar_url"></img>
+            <img
+              className="user-url"
+              src={loggedInUser.avatar_url}
+              alt="user avatar_url"
+            ></img>
             <h3 className="top-bar-message">Welcome {loggedInUser.name}!</h3>
             <button id="logout-button" onClick={this.userLogout}>
               Logout

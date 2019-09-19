@@ -8,12 +8,11 @@ export default class CommentList extends Component {
     comments: [],
     isLoading: true,
     selectedParams: {},
-    page: 1,
-    err: null
+    page: 1
   };
 
   fetchData = () => {
-    const { article_id } = this.props;
+    const { article_id, errorAdder } = this.props;
     const { selectedParams, page } = this.state;
     const params = { params: { ...selectedParams, p: page } };
     if (page === 1) {
@@ -23,35 +22,43 @@ export default class CommentList extends Component {
           this.setState({ comments, isLoading: false });
         })
         .catch(({ response }) => {
-          this.setState({ err: response });
+          errorAdder(response);
         });
     } else {
-      api.getComments(article_id, params).then(({ comments }) => {
-        this.setState(currentState => {
-          const newState = {
-            ...currentState,
-            comments: [...currentState.comments, ...comments]
-          };
-          return newState;
+      api
+        .getComments(article_id, params)
+        .then(({ comments }) => {
+          this.setState(currentState => {
+            const newState = {
+              ...currentState,
+              comments: [...currentState.comments, ...comments]
+            };
+            return newState;
+          });
+        })
+        .catch(({ response }) => {
+          errorAdder(response);
         });
-      });
     }
   };
 
   deleteComment = comment_id => {
-    const { commentDeleter } = this.props;
-    api.deleteComment(comment_id).then(() => {
-      commentDeleter(comment_id);
-      this.setState(currentState => {
-        const newComments = currentState.comments.filter(
-          comment => comment.comment_id !== comment_id
-        );
-        const newState = { ...currentState, comments: newComments };
-        return newState;
-      }).catch(err => {
-        this.setState({ err });
+    const { commentDeleter, errorAdder } = this.props;
+    api
+      .deleteComment(comment_id)
+      .then(() => {
+        commentDeleter(comment_id);
+        this.setState(currentState => {
+          const newComments = currentState.comments.filter(
+            comment => comment.comment_id !== comment_id
+          );
+          const newState = { ...currentState, comments: newComments };
+          return newState;
+        });
+      })
+      .catch(({ response }) => {
+        errorAdder(response);
       });
-    });
   };
 
   componentDidMount() {
@@ -71,7 +78,7 @@ export default class CommentList extends Component {
       this.fetchData();
     }
   }
-  
+
   commentSort = selectedParams => {
     this.setState({ selectedParams, page: 1 });
   };
@@ -83,7 +90,7 @@ export default class CommentList extends Component {
 
   render() {
     const { comments, isLoading, selectedParams, page } = this.state;
-    const { user, commentCount } = this.props;
+    const { user, commentCount, errorAdder } = this.props;
     return isLoading === false ? (
       <div className="article-comment-list">
         <div className="comments-header">
@@ -102,6 +109,7 @@ export default class CommentList extends Component {
               key={comment.comment_id}
               user={user}
               deleteComment={this.deleteComment}
+              errorAdder={errorAdder}
             />
           );
         })}

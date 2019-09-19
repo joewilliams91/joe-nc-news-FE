@@ -6,8 +6,10 @@ export default class ArticleAdder extends Component {
     title: "",
     body: "",
     topic: "",
-    topics: []
+    topics: [],
+    err: null
   };
+
   componentDidMount() {
     this.fetchTopics();
   }
@@ -22,6 +24,7 @@ export default class ArticleAdder extends Component {
     const { value } = event.target;
     this.setState({ topic: value });
   };
+
   handleInput = event => {
     const { value, name } = event.target;
     if (name === "title") {
@@ -30,17 +33,23 @@ export default class ArticleAdder extends Component {
       this.setState({ body: value });
     }
   };
+
   submitArticle = event => {
     event.preventDefault();
     const { title, body, topic } = this.state;
-    const { newArticleAdder } = this.props;
+    const { newArticleAdder, errorAdder } = this.props;
     const { username } = this.props.user;
     if (title && body && topic) {
       const newArticle = { title, body, topic, author: username };
-      api.addArticle(newArticle).then(({ article }) => {
-        this.setState({ title: "", body: "", topic: "" });
-        newArticleAdder(article);
-      });
+      api
+        .addArticle(newArticle)
+        .then(({ article }) => {
+          this.setState({ title: "", body: "", topic: "" });
+          newArticleAdder(article);
+        })
+        .catch(err => {
+          errorAdder(err.response);
+        });
     }
   };
 
@@ -54,7 +63,11 @@ export default class ArticleAdder extends Component {
         <form onSubmit={this.submitArticle}>
           <div className="new-article-header">
             <label>Select topic:</label>
-            <select value={topic} onChange={this.handleTopicChange} className="new-article-select">
+            <select
+              value={topic}
+              onChange={this.handleTopicChange}
+              className="new-article-select"
+            >
               <option value=""></option>
               {topics.map(topic => {
                 const { slug } = topic;
@@ -98,7 +111,7 @@ export default class ArticleAdder extends Component {
               ></textarea>
             </label>
           )}
-          {(topic && body && title) && user.username && (
+          {topic && body && title && user.username && (
             <div className="new-article-footer">
               <button className="new-article-button">Submit</button>
             </div>

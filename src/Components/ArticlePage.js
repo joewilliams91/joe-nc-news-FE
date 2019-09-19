@@ -47,6 +47,7 @@ class ArticlePage extends React.Component {
               newCommentAdder={this.newCommentAdder}
               postNewComment={this.postNewComment}
               user={user}
+              errorAdder={this.errorAdder}
             />
             <CommentList
               newCommentAdder={this.newCommentAdder}
@@ -55,6 +56,7 @@ class ArticlePage extends React.Component {
               user={user}
               commentDeleter={this.commentDeleter}
               commentCount={commentCount}
+              errorAdder={this.errorAdder}
             />
           </div>
         </div>

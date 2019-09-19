@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import * as api from "./api";
 import Icon from "./Icons";
 
@@ -17,7 +17,7 @@ export default class ArticleBody extends Component {
       .getArticle(article_id)
       .then(({ article }) => {
         this.setState({ article, isLoading: false });
-        const { comment_count } = article;        
+        const { comment_count } = article;
         getCommentCount(comment_count);
       })
       .catch(({ response }) => {
@@ -26,7 +26,7 @@ export default class ArticleBody extends Component {
   };
 
   articleVote = inc_votes => {
-    const { article_id } = this.props;
+    const { article_id, errorAdder } = this.props;
     const patch = { inc_votes };
     this.setState(currentState => {
       const newState = {
@@ -35,9 +35,21 @@ export default class ArticleBody extends Component {
       };
       return newState;
     });
-    api.patchArticle(article_id, patch).catch(err => {
-      this.setState({ err });
+    api.patchArticle(article_id, patch).catch(({ response }) => {
+      errorAdder(response);
     });
+  };
+
+  deleteArticle = article_id => {
+    const { errorAdder } = this.props;
+    api
+      .deleteArticle(article_id)
+      .then(() => {
+        navigate("/");
+      })
+      .catch(({ response }) => {
+        errorAdder(response);
+      });
   };
 
   componentDidMount() {
@@ -132,6 +144,17 @@ export default class ArticleBody extends Component {
                 {new Date(created_at).toString().slice(0, 24)}
               </h4>
             </div>
+            {username === author && (
+              <div className="delete-article-area">
+                {" "}
+                <button
+                  className="delete-article-area-button"
+                  onClick={() => this.deleteArticle(article_id)}
+                >
+                  <Icon icon="delete" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       );

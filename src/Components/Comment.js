@@ -10,6 +10,7 @@ export default class Comment extends Component {
 
   commentVote = inc_votes => {
     const { comment_id } = this.props.comment;
+    const { errorAdder } = this.props;
     const patch = { inc_votes };
     this.setState(currentState => {
       const newState = {
@@ -18,8 +19,8 @@ export default class Comment extends Component {
       };
       return newState;
     });
-    api.patchComment(comment_id, patch).catch(err => {
-      this.setState({ err });
+    api.patchComment(comment_id, patch).catch(({response}) => {
+      errorAdder(response);
     });
   };
 

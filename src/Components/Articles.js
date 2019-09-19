@@ -85,7 +85,7 @@ class Articles extends React.Component {
       this.fetchArticles();
     }
   }
-  
+
   nextPage = () => {
     const newPage = this.state.page + 1;
     this.setState({ page: newPage });
@@ -116,6 +116,10 @@ class Articles extends React.Component {
     });
   };
 
+  errorAdder = err => {
+    this.setState({ err });
+  };
+
   render() {
     const { articles, isLoading, selectedParams, err, topics } = this.state;
     const { user } = this.props;
@@ -129,12 +133,14 @@ class Articles extends React.Component {
               topics={topics}
               articleSort={this.articleSort}
               selectedParams={selectedParams}
+              errorAdder={this.errorAdder}
             />
             <ArticleAdder
               addArticle={this.AddArticle}
               user={user}
               topics={topics}
               newArticleAdder={this.newArticleAdder}
+              errorAdder={this.errorAdder}
             />
             {isLoading === false ? (
               <div className="articles">
@@ -147,6 +153,7 @@ class Articles extends React.Component {
                         article={article}
                         key={article_id}
                         deleteArticle={this.deleteArticle}
+                        errorAdder={this.errorAdder}
                       />
                     </>
                   );
