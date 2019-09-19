@@ -7,40 +7,50 @@ export default class CommentList extends Component {
   state = {
     comments: [],
     isLoading: true,
-    isDeleted: false,
     selectedParams: {},
-    page: 1
+    page: 1,
+    err: null
   };
 
   fetchData = () => {
     const { article_id } = this.props;
     const { selectedParams, page } = this.state;
     const params = { params: { ...selectedParams, p: page } };
-    api.getComments(article_id, params).then(({ comments }) => {
-      this.setState({ comments, isLoading: false });
-    });
-  };
-
-  fetchMoreData = () => {
-    const { article_id } = this.props;
-    const { selectedParams, page } = this.state;
-    const params = { params: { ...selectedParams, p: page } };
-    api.getComments(article_id, params).then(({ comments }) => {
-      this.setState(currentState => {
-        const newState = {
-          ...currentState,
-          comments: [...currentState.comments, ...comments]
-        };
-        return newState;
+    if (page === 1) {
+      api
+        .getComments(article_id, params)
+        .then(({ comments }) => {
+          this.setState({ comments, isLoading: false });
+        })
+        .catch(({ response }) => {
+          this.setState({ err: response });
+        });
+    } else {
+      api.getComments(article_id, params).then(({ comments }) => {
+        this.setState(currentState => {
+          const newState = {
+            ...currentState,
+            comments: [...currentState.comments, ...comments]
+          };
+          return newState;
+        });
       });
-    });
+    }
   };
 
   deleteComment = comment_id => {
     const { commentDeleter } = this.props;
-    api.deleteComment(comment_id).then(data => {
-      this.setState({ isDeleted: true });
+    api.deleteComment(comment_id).then(() => {
       commentDeleter(comment_id);
+      this.setState(currentState => {
+        const newComments = currentState.comments.filter(
+          comment => comment.comment_id !== comment_id
+        );
+        const newState = { ...currentState, comments: newComments };
+        return newState;
+      }).catch(err => {
+        this.setState({ err });
+      });
     });
   };
 
@@ -54,19 +64,14 @@ export default class CommentList extends Component {
       this.setState({ selectedParams: {} });
     } else if (
       prevState.selectedParams.sort_by !== this.state.selectedParams.sort_by ||
-      prevState.selectedParams.order !== this.state.selectedParams.order
+      prevState.selectedParams.order !== this.state.selectedParams.order ||
+      (prevState.page !== this.state.page &&
+        this.state.page - prevState.page === 1)
     ) {
       this.fetchData();
-    } else if (prevState.isDeleted !== this.state.isDeleted) {
-      this.fetchData();
-      this.setState({ isDeleted: false });
-    } else if (
-      prevState.page !== this.state.page &&
-      this.state.page - prevState.page === 1
-    ) {
-      this.fetchMoreData();
     }
   }
+  
   commentSort = selectedParams => {
     this.setState({ selectedParams, page: 1 });
   };

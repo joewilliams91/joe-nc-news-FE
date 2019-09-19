@@ -9,15 +9,15 @@ export const getArticles = async params => {
   return data;
 };
 
-export const getUser = async (username) => {
+export const getUser = async username => {
   const { data } = await request.get(`users/${username}`);
   return data;
-}
+};
 
 export const getTopics = async () => {
-  const { data } = await request.get('topics');
+  const { data } = await request.get("topics");
   return data;
-}
+};
 
 export const getArticle = async article_id => {
   const { data } = await request.get(`articles/${article_id}`);
@@ -34,15 +34,20 @@ export const deleteComment = async comment_id => {
   return data;
 };
 
+export const deleteArticle = async article_id => {
+  const { data } = await request.delete(`articles/${article_id}`);
+  return data;
+};
+
 export const addComment = async (article_id, body) => {
   const { data } = await request.post(`articles/${article_id}/comments`, body);
   return data;
 };
 
-export const addArticle = async (body) => {
-  const {data} = await request.post("articles", body);
+export const addArticle = async body => {
+  const { data } = await request.post("articles", body);
   return data;
-}
+};
 
 export const patchArticle = async (article_id, body) => {
   const { data } = await request.patch(`articles/${article_id}`, body);

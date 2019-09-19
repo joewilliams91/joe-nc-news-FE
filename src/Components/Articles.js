@@ -12,16 +12,16 @@ class Articles extends React.Component {
     page: 1,
     isLoading: true,
     selectedParams: {},
-    err: null,
-    topics: [],
-    newArticle: {}
+    err: null
   };
 
   fetchArticles = () => {
     const { topic_id } = this.props;
     const { page, selectedParams } = this.state;
+    const params = {
+      params: { ...selectedParams, topic: topic_id, p: page }
+    };
     if (page === 1) {
-      const params = { params: { topic: topic_id } };
       api
         .getArticles(params)
         .then(({ articles, total_count }) => {
@@ -38,9 +38,6 @@ class Articles extends React.Component {
           this.setState({ err: response });
         });
     } else {
-      const params = {
-        params: { ...selectedParams, topic: topic_id, p: page }
-      };
       api.getArticles(params).then(({ articles, total_count }) => {
         this.setState(currentState => {
           const newState = {
@@ -83,12 +80,12 @@ class Articles extends React.Component {
       prevProps.topic_id !== this.props.topic_id ||
       prevProps.user.username !== this.props.user.username ||
       (prevState.page !== this.state.page &&
-        this.state.page - prevState.page === 1) ||
-      prevState.newArticle.article_id !== this.state.newArticle.article_id
+        this.state.page - prevState.page === 1)
     ) {
       this.fetchArticles();
     }
   }
+  
   nextPage = () => {
     const newPage = this.state.page + 1;
     this.setState({ page: newPage });
@@ -99,7 +96,24 @@ class Articles extends React.Component {
   };
 
   newArticleAdder = newArticle => {
-    this.setState({ newArticle });
+    this.setState(currentState => {
+      const newArticles = [newArticle, ...currentState.articles];
+      const newState = { ...currentState, articles: newArticles };
+      return newState;
+    });
+  };
+
+  deleteArticle = article_id => {
+    this.setState(currentState => {
+      const newArticles = currentState.articles.filter(
+        article => article.article_id !== article_id
+      );
+      const newState = { ...currentState, articles: newArticles };
+      return newState;
+    });
+    api.deleteArticle(article_id).catch(err => {
+      this.setState({ err });
+    });
   };
 
   render() {
@@ -128,7 +142,12 @@ class Articles extends React.Component {
                   const { article_id } = article;
                   return (
                     <>
-                      <Article user={user} article={article} key={article_id} />
+                      <Article
+                        user={user}
+                        article={article}
+                        key={article_id}
+                        deleteArticle={this.deleteArticle}
+                      />
                     </>
                   );
                 })}

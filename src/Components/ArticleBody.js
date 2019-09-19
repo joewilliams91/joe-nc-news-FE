@@ -16,8 +16,8 @@ export default class ArticleBody extends Component {
     api
       .getArticle(article_id)
       .then(({ article }) => {
-        const { comment_count } = article;
         this.setState({ article, isLoading: false });
+        const { comment_count } = article;        
         getCommentCount(comment_count);
       })
       .catch(({ response }) => {

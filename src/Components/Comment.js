@@ -18,7 +18,6 @@ export default class Comment extends Component {
       };
       return newState;
     });
-
     api.patchComment(comment_id, patch).catch(err => {
       this.setState({ err });
     });

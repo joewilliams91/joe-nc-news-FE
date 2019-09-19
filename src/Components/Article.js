@@ -70,6 +70,14 @@ class Article extends React.Component {
               Comments: {comment_count} Votes: {votes + vote}
             </p>
           </div>
+          {user.username === author && (
+            <div className="delete-article-area">
+              {" "}
+              <button className="delete-article-area-button" onClick={() => this.props.deleteArticle(article_id)}>
+              <Icon icon="delete" />
+              </button>
+            </div>
+          )}
           <div className="article-box-votes">
             <button
               onClick={

@@ -331,6 +331,19 @@ button {
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
 }
+.delete-article-area{
+  order: 3;
+  max-width: 5vw;
+}
+.delete-article-area-button{
+  min-width: 4vw;
+  min-height: 9vh;
+  background-color: white;
+  border: none;
+}
+.delete-article-area-button:focus{
+  outline: none;
+}
 .article-box-post-info {
   order: 2;
   display: flex;
@@ -338,7 +351,7 @@ button {
   align-items: flex-start;
   background-color: white;
   margin: 0;
-  width: 70%;
+  width: 38vw;
   border-radius: 7px;
   padding-top: 1vh;
 }
@@ -358,7 +371,7 @@ button {
   justify-content: center;
   margin: 0;
   border-bottom-left-radius: 7px;
-  width: 9.5%;
+  max-width: 4.8vw;
   padding-left: 0.8%;
   padding-top: 0.5%;
   height: 10vh;
