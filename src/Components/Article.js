@@ -57,7 +57,7 @@ class Article extends React.Component {
             <h2 className="link">{title}</h2>
           </Link>
           <div className="article-box-topic">
-            <h3>NC/{topic}</h3>
+            <h3 className="article-box-topic-text">NC/{topic}</h3>
           </div>
         </div>
         <div className="article-box-content">

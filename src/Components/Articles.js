@@ -142,7 +142,7 @@ class Articles extends React.Component {
                   Load more
                 </button>
               ) : (
-                <p>No more articles!</p>
+                <p className="footer-message">No more articles!</p>
               )}
             </div>
           </div>

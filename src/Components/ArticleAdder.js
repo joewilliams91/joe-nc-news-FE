@@ -54,8 +54,8 @@ export default class ArticleAdder extends Component {
         <form onSubmit={this.submitArticle}>
           <div className="new-article-header">
             <label>Select topic:</label>
-            <select value={topic} onChange={this.handleTopicChange}>
-              <option value="">---Topics---</option>
+            <select value={topic} onChange={this.handleTopicChange} className="new-article-select">
+              <option value=""></option>
               {topics.map(topic => {
                 const { slug } = topic;
                 return (
