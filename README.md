@@ -1,6 +1,6 @@
-#NC News - Front End
+# NC News - Front End
 
-##Description
+## Description
 
 NC News is a responsive, Reddit-style web application built using React and serving as a news aggregation and comments board.
 
@@ -18,11 +18,11 @@ The following dependencies were used to build the front-end of this project:
 -Reach/Router
 -Axios
 
-##Getting Started
+## Getting Started
 
 In order to view and interact with the code, the instructions below must be followed.
 
-###Prerequisites
+### Prerequisites
 
 The following must be installed on your machine in order to run this project locally:
 
@@ -30,7 +30,7 @@ The following must be installed on your machine in order to run this project loc
 -Node Package Manager (npm)
 -git (a github account is also required)
 
-##Installing
+## Installing
 
 Fork and clone this repository. 
 
@@ -53,12 +53,12 @@ in your terminal.
 Enjoy!
 
 
-##Authors
+## Authors
 
 Joe Williams, Northcoders
 
 
-##Acknowledgments
+## Acknowledgments
 
 Everyone at Northcoders!
 
