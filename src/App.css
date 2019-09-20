@@ -935,6 +935,9 @@ button {
     max-height: 5vh;
     padding-top: 3.5%;
   }
+  .delete-button-area{
+    padding-top: 4%;
+  }
   .article-box-header {
     max-height: 12vh;
   }
@@ -1193,7 +1196,7 @@ button {
     min-width: 20vw;
   }
   .comment-box {
-    min-height: 42.5vh !important;
+    min-height: 43.5vh !important;
     font-size: 0.9rem;
     padding-left: 2%;
     padding-right: 2%;
