@@ -1,68 +1,68 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#NC News - Front End
 
-## Available Scripts
+##Description
 
-In the project directory, you can run:
+NC News is a responsive, Reddit-style web application built using React and serving as a news aggregation and comments board.
 
-### `npm start`
+The front end of the project is hosted here: _______________________________
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The back end API used for this project can be accessed at: https://joe-nc-news.herokuapp.com/api
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The Github repository for the back end of this project can be found here: https://github.com/joewilliams91/joe-nc-news-BE 
 
-### `npm test`
+The following dependencies were used to build the front-end of this project:
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-React
+-React-DOM
+-React-scripts
+-Reach/Router
+-Axios
 
-### `npm run build`
+##Getting Started
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In order to view and interact with the code, the instructions below must be followed.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+###Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The following must be installed on your machine in order to run this project locally:
 
-### `npm run eject`
+-Node.js
+-Node Package Manager (npm)
+-git (a github account is also required)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+##Installing
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Fork and clone this repository. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+App.js contains the actual app, which comprises the main router, log in/log out functionality and the main state. However, the majority of the app has been broken down into individual, reusable components, which are saved in the src/components directory. The styling, inclusive of media queries, has been written in the App.css file.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+In order to generate the required dependencies to use the app, go to your terminal and install:
 
-## Learn More
+```
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Once this is completed, you will be able to run a local development environment to interact with the app by entering 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+npm start
+```
 
-### Code Splitting
+in your terminal.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Enjoy!
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+##Authors
 
-### Making a Progressive Web App
+Joe Williams, Northcoders
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
+##Acknowledgments
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Everyone at Northcoders!
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
