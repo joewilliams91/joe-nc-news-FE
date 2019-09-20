@@ -6,18 +6,7 @@ export default class ArticleAdder extends Component {
     title: "",
     body: "",
     topic: "",
-    topics: [],
     err: null
-  };
-
-  componentDidMount() {
-    this.fetchTopics();
-  }
-
-  fetchTopics = () => {
-    api.getTopics().then(({ topics }) => {
-      this.setState({ topics });
-    });
   };
 
   handleTopicChange = event => {
@@ -37,25 +26,25 @@ export default class ArticleAdder extends Component {
   submitArticle = event => {
     event.preventDefault();
     const { title, body, topic } = this.state;
-    const { newArticleAdder, errorAdder } = this.props;
+    const { newArticleAdder, addError } = this.props;
     const { username } = this.props.user;
-    if (title && body && topic) {
+    if (title && body && topic && username) {
       const newArticle = { title, body, topic, author: username };
       api
         .addArticle(newArticle)
-        .then(({ article }) => {
+        .then(article => {
           this.setState({ title: "", body: "", topic: "" });
           newArticleAdder(article);
         })
         .catch(err => {
-          errorAdder(err.response);
+          addError(err.response);
         });
     }
   };
 
   render() {
-    const { topics, topic, body, title } = this.state;
-    const { user } = this.props;
+    const { topic, body, title } = this.state;
+    const { topics, user } = this.props;
     return (
       <div className="new-article-form">
         <h2 className="new-article-head">Add a new article:</h2>
@@ -111,11 +100,10 @@ export default class ArticleAdder extends Component {
               ></textarea>
             </label>
           )}
-          {topic && body && title && user.username && (
-            <div className="new-article-footer">
-              <button className="new-article-button">Submit</button>
-            </div>
-          )}
+
+          <div className="new-article-footer">
+            <button className="new-article-button">Submit</button>
+          </div>
         </form>
       </div>
     );

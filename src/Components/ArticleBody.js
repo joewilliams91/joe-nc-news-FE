@@ -12,21 +12,21 @@ export default class ArticleBody extends Component {
   };
 
   fetchData = () => {
-    const { article_id, errorAdder, getCommentCount } = this.props;
+    const { article_id, addError, getCommentCount } = this.props;
     api
       .getArticle(article_id)
-      .then(({ article }) => {
+      .then( article => {
         this.setState({ article, isLoading: false });
         const { comment_count } = article;
         getCommentCount(comment_count);
       })
       .catch(({ response }) => {
-        errorAdder(response);
+        addError(response);
       });
   };
 
   articleVote = inc_votes => {
-    const { article_id, errorAdder } = this.props;
+    const { article_id, addError } = this.props;
     const patch = { inc_votes };
     this.setState(currentState => {
       const newState = {
@@ -36,19 +36,19 @@ export default class ArticleBody extends Component {
       return newState;
     });
     api.patchArticle(article_id, patch).catch(({ response }) => {
-      errorAdder(response);
+      addError(response);
     });
   };
 
   deleteArticle = article_id => {
-    const { errorAdder } = this.props;
+    const { addError } = this.props;
     api
       .deleteArticle(article_id)
       .then(() => {
         navigate("/");
       })
       .catch(({ response }) => {
-        errorAdder(response);
+        addError(response);
       });
   };
 
@@ -106,7 +106,7 @@ export default class ArticleBody extends Component {
           <div className="article-body-box-content">
             <div className="article-body-box-votes">
               <button
-                className="thread-vote-button"
+                className={username ? "thread-vote-button" : "no-user-thread-vote-button"}
                 value="1"
                 onClick={
                   vote < 1 && username
@@ -119,7 +119,7 @@ export default class ArticleBody extends Component {
                 <Icon icon="up" />
               </button>
               <button
-                className="thread-vote-button"
+                className={username ? "thread-vote-button" : "no-user-thread-vote-button"}
                 value="-1"
                 onClick={
                   vote > -1 && username

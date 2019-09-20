@@ -18,7 +18,7 @@ class ArticlePage extends React.Component {
   commentDeleter = deletedComment => {
     this.setState({ deletedComment });
   };
-  errorAdder = err => {
+  addError = err => {
     this.setState({ err });
   };
   getCommentCount = commentCount => {
@@ -39,7 +39,7 @@ class ArticlePage extends React.Component {
               newComment={newComment}
               deletedComment={deletedComment}
               user={user}
-              errorAdder={this.errorAdder}
+              addError={this.addError}
               getCommentCount={this.getCommentCount}
             />
             <CommentBox
@@ -47,7 +47,7 @@ class ArticlePage extends React.Component {
               newCommentAdder={this.newCommentAdder}
               postNewComment={this.postNewComment}
               user={user}
-              errorAdder={this.errorAdder}
+              addError={this.addError}
             />
             <CommentList
               newCommentAdder={this.newCommentAdder}
@@ -56,7 +56,7 @@ class ArticlePage extends React.Component {
               user={user}
               commentDeleter={this.commentDeleter}
               commentCount={commentCount}
-              errorAdder={this.errorAdder}
+              addError={this.addError}
             />
           </div>
         </div>

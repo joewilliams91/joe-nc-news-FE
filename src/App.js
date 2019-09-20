@@ -5,36 +5,47 @@ import TopBar from "./Components/TopBar";
 import Articles from "./Components/Articles";
 import ArticlePage from "./Components/ArticlePage";
 import ErrorHandler from "./Components/ErrorHandler";
+import * as api from "./Components/api";
 
 class App extends React.Component {
   state = {
     user: {},
-    err: null
+    err: null,
+    topics: []
   };
-  login = user => {
-    this.setState({ user });
+
+  setUser = user => {
+    this.setState({user: user ? user : {}})
+  }
+
+  fetchTopics = () => {
+    api.getTopics().then(topics  => {
+      this.setState({ topics });
+    });
   };
-  logout = () => {
-    this.setState({ user: {} });
-  };
-  errorAdder = err => {
+
+  componentDidMount() {
+    this.fetchTopics();
+  }
+
+  addError = err => {
     this.setState({ err });
   };
 
   render() {
-    const { user, err } = this.state;
+    const { user, err, topics } = this.state;
 
     return (
       <div className="App">
         <TopBar
-          logout={this.logout}
-          login={this.login}
-          errorAdder={this.errorAdder}
+          setUser={this.setUser}
+          addError={this.addError}
+          user={user}
         />
         {err && <ErrorHandler {...err} />}
         <Router>
-          <Articles user={user} path="/" className="articles" />
-          <Articles user={user} path="/topics/:topic_id" />
+          <Articles topics={topics} user={user} path="/" className="articles" />
+          <Articles topics={topics} user={user} path="/topics/:topic_id" />
           <ArticlePage user={user} path="article/:article_id" />
           <ErrorHandler default status={404} msg="Page not found" />
         </Router>

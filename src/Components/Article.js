@@ -11,7 +11,7 @@ class Article extends React.Component {
 
   articleVote = inc_votes => {
     const { article_id } = this.props.article;
-    const {errorAdder} = this.props;
+    const { addError } = this.props;
     const patch = { inc_votes };
     this.setState(currentState => {
       const newState = {
@@ -21,7 +21,7 @@ class Article extends React.Component {
       return newState;
     });
     api.patchArticle(article_id, patch).catch(err => {
-      errorAdder(err.response)
+      addError(err.response);
     });
   };
 
@@ -74,8 +74,11 @@ class Article extends React.Component {
           {user.username === author && (
             <div className="delete-article-area">
               {" "}
-              <button className="delete-article-area-button" onClick={() => this.props.deleteArticle(article_id)}>
-              <Icon icon="delete" />
+              <button
+                className="delete-article-area-button"
+                onClick={() => this.props.deleteArticle(article_id)}
+              >
+                <Icon icon="delete" />
               </button>
             </div>
           )}
@@ -88,9 +91,9 @@ class Article extends React.Component {
                     }
                   : null
               }
-              className="vote-button"
+              className={user.username ? "vote-button" : "no-user-vote-button"}
             >
-              <Icon icon="up" />
+              <Icon icon="up"/>
             </button>
 
             <button
@@ -101,7 +104,7 @@ class Article extends React.Component {
                     }
                   : null
               }
-              className="vote-button"
+              className={user.username ? "vote-button" : "no-user-vote-button"}
             >
               <Icon icon="down" />
             </button>

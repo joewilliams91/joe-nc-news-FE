@@ -12,18 +12,20 @@ export default class CommentBox extends Component {
   };
   addNewComment = event => {
     event.preventDefault();
-    const { article_id, user, newCommentAdder, errorAdder } = this.props;
+    const { article_id, user, newCommentAdder, addError } = this.props;
     const { commentBody } = this.state;
     const newComment = { username: user.username, body: commentBody };
-    api
-      .addComment(article_id, newComment)
-      .then(({ comment }) => {
-        this.setState({ commentBody: "" });
-        newCommentAdder(comment);
-      })
-      .catch(({ response }) => {
-        errorAdder(response);
-      });
+    if (commentBody.length > 0) {
+      api
+        .addComment(article_id, newComment)
+        .then(comment  => {
+          this.setState({ commentBody: "" });
+          newCommentAdder(comment);
+        })
+        .catch(({ response }) => {
+          addError(response);
+        });
+    }
   };
 
   render() {

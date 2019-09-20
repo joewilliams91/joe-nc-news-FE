@@ -10,7 +10,7 @@ export default class Comment extends Component {
 
   commentVote = inc_votes => {
     const { comment_id } = this.props.comment;
-    const { errorAdder } = this.props;
+    const { addError } = this.props;
     const patch = { inc_votes };
     this.setState(currentState => {
       const newState = {
@@ -19,8 +19,8 @@ export default class Comment extends Component {
       };
       return newState;
     });
-    api.patchComment(comment_id, patch).catch(({response}) => {
-      errorAdder(response);
+    api.patchComment(comment_id, patch).catch(({ response }) => {
+      addError(response);
     });
   };
 
@@ -55,7 +55,9 @@ export default class Comment extends Component {
                     }
                   : null
               }
-              className="comment-box-button"
+              className={
+                username ? "comment-box-button" : "no-user-comment-box-button"
+              }
               value="1"
             >
               <Icon icon="up" />
@@ -68,7 +70,9 @@ export default class Comment extends Component {
                     }
                   : null
               }
-              className="comment-box-button"
+              className={
+                username ? "comment-box-button" : "no-user-comment-box-button"
+              }
               value="-1"
             >
               <Icon icon="down" />

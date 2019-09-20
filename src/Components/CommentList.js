@@ -12,38 +12,30 @@ export default class CommentList extends Component {
   };
 
   fetchData = () => {
-    const { article_id, errorAdder } = this.props;
+    const { article_id, addError } = this.props;
     const { selectedParams, page } = this.state;
     const params = { params: { ...selectedParams, p: page } };
-    if (page === 1) {
-      api
-        .getComments(article_id, params)
-        .then(({ comments }) => {
-          this.setState({ comments, isLoading: false });
-        })
-        .catch(({ response }) => {
-          errorAdder(response);
+    api
+      .getComments(article_id, params)
+      .then(comments => {
+        this.setState(currentState => {
+          return {
+            ...currentState,
+            isLoading: false,
+            comments:
+              currentState.page === 1
+                ? comments
+                : [...currentState.comments, ...comments]
+          };
         });
-    } else {
-      api
-        .getComments(article_id, params)
-        .then(({ comments }) => {
-          this.setState(currentState => {
-            const newState = {
-              ...currentState,
-              comments: [...currentState.comments, ...comments]
-            };
-            return newState;
-          });
-        })
-        .catch(({ response }) => {
-          errorAdder(response);
-        });
-    }
+      })
+      .catch(({ response }) => {
+        addError(response);
+      });
   };
 
   deleteComment = comment_id => {
-    const { commentDeleter, errorAdder } = this.props;
+    const { commentDeleter, addError } = this.props;
     api
       .deleteComment(comment_id)
       .then(() => {
@@ -57,7 +49,7 @@ export default class CommentList extends Component {
         });
       })
       .catch(({ response }) => {
-        errorAdder(response);
+        addError(response);
       });
   };
 
@@ -90,7 +82,7 @@ export default class CommentList extends Component {
 
   render() {
     const { comments, isLoading, selectedParams, page } = this.state;
-    const { user, commentCount, errorAdder } = this.props;
+    const { user, commentCount, addError } = this.props;
     return isLoading === false ? (
       <div className="article-comment-list">
         <div className="comments-header">
@@ -109,7 +101,7 @@ export default class CommentList extends Component {
               key={comment.comment_id}
               user={user}
               deleteComment={this.deleteComment}
-              errorAdder={errorAdder}
+              addError={addError}
             />
           );
         })}

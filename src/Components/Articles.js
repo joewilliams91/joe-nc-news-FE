@@ -87,8 +87,9 @@ class Articles extends React.Component {
   }
 
   nextPage = () => {
-    const newPage = this.state.page + 1;
-    this.setState({ page: newPage });
+    this.setState(({ page }) => {
+      return { page: page + 1 };
+    });
   };
 
   articleSort = selectedParams => {
@@ -116,13 +117,13 @@ class Articles extends React.Component {
     });
   };
 
-  errorAdder = err => {
+  addError = err => {
     this.setState({ err });
   };
 
   render() {
-    const { articles, isLoading, selectedParams, err, topics } = this.state;
-    const { user } = this.props;
+    const { articles, isLoading, selectedParams, err } = this.state;
+    const { user, topics } = this.props;
     if (err) {
       return <ErrorHandler {...err} />;
     } else {
@@ -133,29 +134,28 @@ class Articles extends React.Component {
               topics={topics}
               articleSort={this.articleSort}
               selectedParams={selectedParams}
-              errorAdder={this.errorAdder}
+              addError={this.addError}
             />
             <ArticleAdder
               addArticle={this.AddArticle}
               user={user}
               topics={topics}
               newArticleAdder={this.newArticleAdder}
-              errorAdder={this.errorAdder}
+              addError={this.addError}
             />
             {isLoading === false ? (
               <div className="articles">
                 {articles.map(article => {
                   const { article_id } = article;
                   return (
-                    <>
+                    <div key={article_id}>
                       <Article
                         user={user}
                         article={article}
-                        key={article_id}
                         deleteArticle={this.deleteArticle}
-                        errorAdder={this.errorAdder}
+                        addError={this.addError}
                       />
-                    </>
+                    </div>
                   );
                 })}
               </div>

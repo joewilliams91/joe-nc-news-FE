@@ -4,40 +4,38 @@ import * as api from "./api";
 
 class TopBar extends React.Component {
   state = {
-    loggedInUser: {},
     selectedUser: ""
   };
 
   userLogin = event => {
     event.preventDefault();
     const { selectedUser } = this.state;
-    const { errorAdder } = this.props;
+    const { addError, setUser } = this.props;
     api
       .getUser(selectedUser)
-      .then(({ user }) => {
-        this.setState({
-          loggedInUser: user,
-          selectedUser: ""
-        });
-        this.props.login(user);
+      .then(user => {
+        setUser(user);
       })
       .catch(({ response }) => {
-        errorAdder(response);
+        addError(response);
       });
   };
 
   userLogout = event => {
     event.preventDefault();
-    this.setState({ loggedInUser: {}, selectedUser: "" });
-    this.props.logout();
+    const { setUser } = this.props;
+    this.setState({ selectedUser: "" });
+    setUser();
   };
 
   handleChange = event => {
     const { value } = event.target;
     this.setState({ selectedUser: value });
   };
+
   render() {
-    const { selectedUser, loggedInUser } = this.state;
+    const { selectedUser } = this.state;
+    const { user } = this.props;
     return (
       <div className="topbar">
         <h1 className="logo">
@@ -45,14 +43,14 @@ class TopBar extends React.Component {
             NC News
           </Link>
         </h1>
-        {loggedInUser.username ? (
+        {user.username ? (
           <div className="user-details">
             <img
               className="user-url"
-              src={loggedInUser.avatar_url}
+              src={user.avatar_url}
               alt="user avatar_url"
             ></img>
-            <h3 className="top-bar-message">Welcome {loggedInUser.name}!</h3>
+            <h3 className="top-bar-message">Welcome {user.name}!</h3>
             <button id="logout-button" onClick={this.userLogout}>
               Logout
             </button>
