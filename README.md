@@ -12,11 +12,11 @@ The Github repository for the back end of this project can be found here: https:
 
 The following dependencies were used to build the front-end of this project:
 
--React
--React-DOM
--React-scripts
--Reach/Router
--Axios
+- React
+- React-DOM
+- React-scripts
+- Reach/Router
+- Axios
 
 ## Getting Started
 
