@@ -34,12 +34,9 @@ export default class CommentList extends Component {
       });
   };
 
-  deleteComment = comment_id => {
-    const { commentDeleter, addError } = this.props;
-    api
-      .deleteComment(comment_id)
-      .then(() => {
-        commentDeleter(comment_id);
+  updateComments = comment_id => {
+    const {commentDeleter} = this.props;
+    commentDeleter(comment_id);
         this.setState(currentState => {
           const newComments = currentState.comments.filter(
             comment => comment.comment_id !== comment_id
@@ -47,11 +44,8 @@ export default class CommentList extends Component {
           const newState = { ...currentState, comments: newComments };
           return newState;
         });
-      })
-      .catch(({ response }) => {
-        addError(response);
-      });
-  };
+
+  }
 
   componentDidMount() {
     this.fetchData();
@@ -102,6 +96,7 @@ export default class CommentList extends Component {
               user={user}
               deleteComment={this.deleteComment}
               addError={addError}
+              updateComments={this.updateComments}
             />
           );
         })}

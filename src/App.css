@@ -1140,7 +1140,7 @@ button {
   #login-button {
     height: 4vh;
     min-width: 15vw;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
   .thread-column {
     min-width: 85vw;
@@ -1196,7 +1196,7 @@ button {
     min-width: 20vw;
   }
   .comment-box {
-    min-height: 43.5vh !important;
+    min-height: 45.5vh !important;
     font-size: 0.9rem;
     padding-left: 2%;
     padding-right: 2%;

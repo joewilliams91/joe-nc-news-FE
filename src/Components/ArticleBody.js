@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Link, navigate } from "@reach/router";
+import Voter from "./Voter.js";
 import * as api from "./api";
 import Icon from "./Icons";
 
 export default class ArticleBody extends Component {
   state = {
     article: {},
-    err: null,
     isLoading: true,
     vote: 0
   };
@@ -15,7 +15,7 @@ export default class ArticleBody extends Component {
     const { article_id, addError, getCommentCount } = this.props;
     api
       .getArticle(article_id)
-      .then( article => {
+      .then(article => {
         this.setState({ article, isLoading: false });
         const { comment_count } = article;
         getCommentCount(comment_count);
@@ -25,18 +25,13 @@ export default class ArticleBody extends Component {
       });
   };
 
-  articleVote = inc_votes => {
-    const { article_id, addError } = this.props;
-    const patch = { inc_votes };
+  voteChange = inc_votes => {
     this.setState(currentState => {
       const newState = {
         ...currentState,
         vote: currentState.vote + inc_votes
       };
       return newState;
-    });
-    api.patchArticle(article_id, patch).catch(({ response }) => {
-      addError(response);
     });
   };
 
@@ -56,13 +51,16 @@ export default class ArticleBody extends Component {
     this.fetchData();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (
       prevProps.newComment !== this.props.newComment ||
       prevProps.deletedComment !== this.props.deletedComment
     ) {
       this.fetchData();
-    }
+    } 
+    // else if (prevProps.user.username !== this.props.user.username) {
+    //   this.setState({ vote: 0 });
+    // }
   }
 
   render() {
@@ -78,6 +76,7 @@ export default class ArticleBody extends Component {
     } = this.state.article;
     const { isLoading, vote } = this.state;
     const { username } = this.props.user;
+    const { addError } = this.props;
     if (isLoading) {
       return (
         <div className="article-body-box" key={article_id}>
@@ -104,34 +103,14 @@ export default class ArticleBody extends Component {
             <p id="article-body-body-text">{body}</p>
           </div>
           <div className="article-body-box-content">
-            <div className="article-body-box-votes">
-              <button
-                className={username ? "thread-vote-button" : "no-user-thread-vote-button"}
-                value="1"
-                onClick={
-                  vote < 1 && username
-                    ? () => {
-                        this.articleVote(1);
-                      }
-                    : null
-                }
-              >
-                <Icon icon="up" />
-              </button>
-              <button
-                className={username ? "thread-vote-button" : "no-user-thread-vote-button"}
-                value="-1"
-                onClick={
-                  vote > -1 && username
-                    ? () => {
-                        this.articleVote(-1);
-                      }
-                    : null
-                }
-              >
-                <Icon icon="down" />
-              </button>
-            </div>
+            <Voter
+              username={username}
+              vote={vote}
+              voteChange={this.voteChange}
+              name="article-body-voter"
+              addError={addError}
+              article_id={article_id}
+            />
             <div className="article-body-box-footer">
               <div className="article-body-box-count-area">
                 <p>

@@ -1,7 +1,7 @@
 import React from "react";
-import * as api from "./api";
 import { Link } from "@reach/router";
 import Icon from "./Icons";
+import Voter from "./Voter.js";
 
 class Article extends React.Component {
   state = {
@@ -9,10 +9,7 @@ class Article extends React.Component {
     err: null
   };
 
-  articleVote = inc_votes => {
-    const { article_id } = this.props.article;
-    const { addError } = this.props;
-    const patch = { inc_votes };
+  voteChange = inc_votes => {
     this.setState(currentState => {
       const newState = {
         ...currentState,
@@ -20,24 +17,15 @@ class Article extends React.Component {
       };
       return newState;
     });
-    api.patchArticle(article_id, patch).catch(err => {
-      addError(err.response);
-    });
   };
 
   componentDidMount() {
     this.setState({ vote: 0 });
   }
-  componentDidUpdate(prevProps) {
-    if (prevProps.user.username !== this.props.user.username) {
-      this.setState({ hasVoted: false });
-    } else if (prevProps.article.votes !== this.props.article.votes) {
-      this.setState({ vote: 0 });
-    }
-  }
 
   render() {
-    const { user } = this.props;
+    const { username } = this.props.user;
+    const { addError } = this.props;
     const {
       author,
       title,
@@ -71,7 +59,7 @@ class Article extends React.Component {
               Comments: {comment_count} Votes: {votes + vote}
             </p>
           </div>
-          {user.username === author && (
+          {username === author && (
             <div className="delete-article-area">
               {" "}
               <button
@@ -82,33 +70,14 @@ class Article extends React.Component {
               </button>
             </div>
           )}
-          <div className="article-box-votes">
-            <button
-              onClick={
-                vote < 1 && user.username
-                  ? () => {
-                      this.articleVote(1);
-                    }
-                  : null
-              }
-              className={user.username ? "vote-button" : "no-user-vote-button"}
-            >
-              <Icon icon="up"/>
-            </button>
-
-            <button
-              onClick={
-                vote > -1 && user.username
-                  ? () => {
-                      this.articleVote(-1);
-                    }
-                  : null
-              }
-              className={user.username ? "vote-button" : "no-user-vote-button"}
-            >
-              <Icon icon="down" />
-            </button>
-          </div>
+          <Voter
+            username={username}
+            vote={vote}
+            voteChange={this.voteChange}
+            name="article-voter"
+            article_id={article_id}
+            addError={addError}
+          />
         </div>
       </div>
     );

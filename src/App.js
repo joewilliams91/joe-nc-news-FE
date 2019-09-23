@@ -15,16 +15,18 @@ class App extends React.Component {
   };
 
   setUser = user => {
-    this.setState({user: user ? user : {}})
-  }
+    this.setState({ user: user ? user : {} });
+  };
 
   fetchTopics = () => {
-    api.getTopics().then(topics  => {
+    api.getTopics().then(topics => {
       this.setState({ topics });
     });
   };
 
   componentDidMount() {
+    const user = localStorage.user ? JSON.parse(localStorage.user) : {};
+    this.setState({ user });
     this.fetchTopics();
   }
 
@@ -34,14 +36,9 @@ class App extends React.Component {
 
   render() {
     const { user, err, topics } = this.state;
-
     return (
       <div className="App">
-        <TopBar
-          setUser={this.setUser}
-          addError={this.addError}
-          user={user}
-        />
+        <TopBar setUser={this.setUser} addError={this.addError} user={user} />
         {err && <ErrorHandler {...err} />}
         <Router>
           <Articles topics={topics} user={user} path="/" className="articles" />

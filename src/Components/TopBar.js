@@ -11,20 +11,24 @@ class TopBar extends React.Component {
     event.preventDefault();
     const { selectedUser } = this.state;
     const { addError, setUser } = this.props;
-    api
-      .getUser(selectedUser)
-      .then(user => {
-        setUser(user);
-      })
-      .catch(({ response }) => {
-        addError(response);
-      });
+    if (selectedUser) {
+      api
+        .getUser(selectedUser)
+        .then(user => {
+          setUser(user);
+          localStorage.setItem("user", JSON.stringify(user));
+        })
+        .catch(({ response }) => {
+          addError(response);
+        });
+    }
   };
 
   userLogout = event => {
     event.preventDefault();
     const { setUser } = this.props;
     this.setState({ selectedUser: "" });
+    localStorage.setItem("user", JSON.stringify({}));
     setUser();
   };
 

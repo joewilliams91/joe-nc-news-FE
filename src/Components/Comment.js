@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import * as api from "./api";
 import Icon from "./Icons";
+import Voter from "./Voter";
 
 export default class Comment extends Component {
   state = {
     vote: 0,
-    err: null
+    isDeleting: false
   };
 
-  commentVote = inc_votes => {
-    const { comment_id } = this.props.comment;
-    const { addError } = this.props;
-    const patch = { inc_votes };
+  voteChange = inc_votes => {
     this.setState(currentState => {
       const newState = {
         ...currentState,
@@ -19,21 +17,27 @@ export default class Comment extends Component {
       };
       return newState;
     });
-    api.patchComment(comment_id, patch).catch(({ response }) => {
-      addError(response);
-    });
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.comment.votes !== this.props.comment.votes) {
-      this.setState({ vote: 0 });
-    }
-  }
+  deleteComment = comment_id => {
+    const { addError, updateComments } = this.props;
+    this.setState({ isDeleting: true });
+    api
+      .deleteComment(comment_id)
+      .then(() => {
+        updateComments(comment_id);
+        this.setState({ isDeleting: false });
+      })
+      .catch(({ response }) => {
+        addError(response);
+      });
+  };
 
   render() {
     const { comment_id, author, created_at, body, votes } = this.props.comment;
     const { username } = this.props.user;
-    const { vote } = this.state;
+    const { addError } = this.props;
+    const { vote, isDeleting } = this.state;
     return (
       <div className="comment-box" key={comment_id}>
         <p className="comment-box-body">{body}</p>
@@ -45,44 +49,23 @@ export default class Comment extends Component {
             </h4>
             <p className="comment-box-votes-info">Votes: {votes + vote}</p>
           </div>
-
-          <div className="comment-box-vote-buttons">
-            <button
-              onClick={
-                vote < 1 && username
-                  ? () => {
-                      this.commentVote(1);
-                    }
-                  : null
-              }
-              className={
-                username ? "comment-box-button" : "no-user-comment-box-button"
-              }
-              value="1"
-            >
-              <Icon icon="up" />
-            </button>
-            <button
-              onClick={
-                vote > -1 && username
-                  ? () => {
-                      this.commentVote(-1);
-                    }
-                  : null
-              }
-              className={
-                username ? "comment-box-button" : "no-user-comment-box-button"
-              }
-              value="-1"
-            >
-              <Icon icon="down" />
-            </button>
-          </div>
+          <Voter
+            username={username}
+            vote={vote}
+            voteChange={this.voteChange}
+            name="comment-voter"
+            addError={addError}
+            comment_id={comment_id}
+          />
           {username === author && (
             <div className="delete-button-area">
               <button
                 className="delete-button"
-                onClick={() => this.props.deleteComment(comment_id)}
+                onClick={() =>
+                  username && !isDeleting
+                    ? this.deleteComment(comment_id)
+                    : null
+                }
               >
                 <Icon icon="delete" />
               </button>

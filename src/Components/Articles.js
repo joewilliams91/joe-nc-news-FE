@@ -15,20 +15,39 @@ class Articles extends React.Component {
     err: null
   };
 
-  fetchArticles = () => {
+  componentDidMount() {
+    this.fetchArticles(1);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { page } = this.state;
+    if (prevState.page !== this.state.page) {
+      this.fetchArticles(page);
+    } else if (
+      prevState.selectedParams.sort_by !== this.state.selectedParams.sort_by ||
+      prevState.selectedParams.order !== this.state.selectedParams.order
+    ) {
+      this.fetchArticles(1);
+    } else if (prevProps.topic_id !== this.props.topic_id) {
+      this.fetchArticles(1, "topic");
+    }
+  }
+
+  fetchArticles = (p, type) => {
     const { topic_id } = this.props;
-    const { page, selectedParams } = this.state;
+    const { selectedParams } = this.state;
     const params = {
-      params: { ...selectedParams, topic: topic_id, p: page }
+      params: type === "topic" ? {topic: topic_id, p } : { ...selectedParams, topic: topic_id, p }
     };
-    if (page === 1) {
+    if (p === 1) {
       api
         .getArticles(params)
         .then(({ articles, total_count }) => {
+          window.scrollTo(0, 0);
           this.setState({
             articles,
             total_count,
-            selectedParams: {},
+            selectedParams: type === "topic" ? {} : selectedParams,
             page: 1,
             isLoading: false,
             err: null
@@ -50,41 +69,6 @@ class Articles extends React.Component {
       });
     }
   };
-
-  sortArticles = () => {
-    const { topic_id } = this.props;
-    const { selectedParams } = this.state;
-    const params = { params: { ...selectedParams, topic: topic_id } };
-    api.getArticles(params).then(({ articles, total_count }) => {
-      this.setState({
-        articles,
-        total_count,
-        page: 1,
-        isLoading: false,
-        err: null
-      });
-    });
-  };
-
-  componentDidMount() {
-    this.fetchArticles();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.selectedParams.sort_by !== this.state.selectedParams.sort_by ||
-      prevState.selectedParams.order !== this.state.selectedParams.order
-    ) {
-      this.sortArticles();
-    } else if (
-      prevProps.topic_id !== this.props.topic_id ||
-      prevProps.user.username !== this.props.user.username ||
-      (prevState.page !== this.state.page &&
-        this.state.page - prevState.page === 1)
-    ) {
-      this.fetchArticles();
-    }
-  }
 
   nextPage = () => {
     this.setState(({ page }) => {

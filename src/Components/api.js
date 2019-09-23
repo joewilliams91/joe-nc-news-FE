@@ -49,17 +49,10 @@ export const addArticle = async body => {
   return data.article;
 };
 
-export const patchArticle = async (article_id, body) => {
-  const { data } = await request.patch(`articles/${article_id}`, body);
+export const patchVotes = async (id, body, type) => {
+  const { data } = await request.patch(
+    `${type === "article" ? "articles" : "comments"}/${id}`,
+    body
+  );
   return data.article;
-};
-
-export const patchComment = async (comment_id, body) => {
-  const { data } = await request.patch(`comments/${comment_id}`, body);
-  return data.comment;
-};
-
-export const patchData = async (url, body) => {
-  const { data } = await request.patch(`${url}`, body);
-  return data;
 };
