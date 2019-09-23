@@ -984,6 +984,7 @@ button {
   }
   .new-article-title-input {
     min-width: 76vw;
+    font-size: 16px;
   }
   .new-article-title {
     display: flex;
@@ -1004,6 +1005,7 @@ button {
     margin-top: 12vh;
     min-width: 82.5vw;
     min-height: 38vh;
+    font-size: 16px;
   }
 
   .new-article-button {
@@ -1049,6 +1051,7 @@ button {
   }
   .new-article-text-area {
     min-width: 70vw;
+    font-size: 16px;
   }
   .new-article-header {
     flex-direction: column;
