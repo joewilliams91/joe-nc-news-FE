@@ -978,22 +978,21 @@ button {
     margin-bottom: 2%;
   }
   .new-article-body {
-    min-height: 18vh;
+    min-height: 28vh;
     padding-bottom: 0;
     padding-top: 0;
   }
   .new-article-title-input {
-    min-width: 76vw;
+    min-width: 74vw;
     font-size: 16px;
+    min-height: 2em;
   }
   .new-article-title {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-  }
-  .new-article-title {
-    min-height: 6vh;
+    min-height: 4em !important;
   }
   #logout-button {
     min-width: 15vw !important;
@@ -1004,22 +1003,20 @@ button {
   .new-article-form {
     margin-top: 12vh;
     min-width: 82.5vw;
-    min-height: 38vh;
+    min-height: 57vh;
     font-size: 16px;
   }
 
   .new-article-button {
-    max-width: 13vw;
+    max-width: 17vw;
   }
   .articles-column {
     max-width: 83vw;
-    font-size: 2.9vw;
+    font-size: 4vw;
     padding-bottom: 0;
   }
   .article-box {
-    min-height: 17vh;
-    max-height: 26vh;
-    padding-bottom: 2%;
+    min-height: 29vh;
   }
   .filter-topic-container {
     flex-direction: column;
@@ -1045,13 +1042,15 @@ button {
   .delete-article-area-button {
     min-width: 11vw;
     min-height: 6vh;
+    margin-top: 3%;
   }
   .sort-bar {
     padding-bottom: 3%;
   }
   .new-article-text-area {
-    min-width: 70vw;
+    min-width: 67vw;
     font-size: 16px;
+    min-height: 7.7em;
   }
   .new-article-header {
     flex-direction: column;
@@ -1070,16 +1069,17 @@ button {
   }
   .vote-button {
     min-height: 3.8vh;
-    min-width: 5.9vh;
+    min-width: 6.9vh;
   }
   .no-user-vote-button {
-    min-height: 3.8vh;
-    min-width: 5.9vh;
+    min-height: 5.8vh;
+    min-width: 6.9vh;
   }
   .article-box-votes {
-    min-height: 6.8vh;
+    min-height: 12.6vh;
     min-width: 12vw;
     padding-top: 3.5%;
+    padding-left: 1%;
   }
   .sort-bar {
     width: 80%;
@@ -1091,9 +1091,7 @@ button {
     max-height: 14vh;
   }
   .article-box-header {
-    max-height: 10vh;
-    min-height: 5vh;
-    padding-bottom: 5.5%;
+    min-height: 14.2vh;
   }
   .article-icon {
     max-height: 3.5vh;
@@ -1101,23 +1099,24 @@ button {
     padding-right: 1.5%;
   }
   .article-box-title {
-    font-size: 2.4vw !important;
+    font-size: 68% !important;
     width: 100%;
     padding-bottom: 1%;
     max-height: 9.5vh !important;
-    min-height: 2vh !important;
+    min-height: 3vh !important;
   }
   .article-box-topic {
-    font-size: 2.5vw !important;
+    font-size: 65% !important;
     width: 40%;
     padding-top: 2%;
     padding-right: 3%;
   }
   .article-box-post-info {
     min-width: 53vw;
+    padding-top: 4%;
   }
   .article-box-count-area {
-    margin-top: 1%;
+    margin-top: 3%;
   }
   .login-section {
     width: 50%;
@@ -1143,33 +1142,39 @@ button {
   #login-button {
     height: 4vh;
     min-width: 15vw;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   .thread-column {
     min-width: 85vw;
   }
   .article-body-box {
-    min-height: 70em !important;
+    min-height: 60rem !important;
   }
   .article-body-box-title {
-    font-size: 2.1vw !important;
+    font-size: 0.8rem !important;
   }
   .article-body-box-topic {
-    font-size: 3vw !important;
+    font-size: 0.7rem !important;
+    padding-top: 3%;
   }
   .article-body-body {
-    font-size: 3.5vw;
+    font-size: 1rem;
   }
   .article-body-box-content {
-    font-size: 3.2vw;
+    font-size: 1rem;
     flex-wrap: wrap;
   }
   .article-body-box-footer {
     max-width: 56vw;
     padding-top: 8.2%;
   }
+  .article-body-icon{
+    padding-top: 23.2% !important;
+  }
   .article-body-header {
-    max-height: 22vh !important;
+    max-height: 47vh !important;
+    font-size: 1rem;
+    align-items: flex-start;
   }
 
   .article-body-box-count-area {
@@ -1199,41 +1204,41 @@ button {
     min-width: 20vw;
   }
   .comment-box {
-    min-height: 45.5vh !important;
-    font-size: 0.9rem;
+    min-height: 66.5vh !important;
+    font-size: 1rem;
     padding-left: 2%;
     padding-right: 2%;
     justify-content: center;
   }
   .comment-box-button {
-    min-height: 4.1vh;
+    min-height: 6.1vh;
     min-width: 12.1vw;
     padding-top: 10%;
     padding-right: 5%;
   }
   .no-user-comment-box-button {
-    min-height: 4.1vh;
+    min-height: 6.1vh;
     min-width: 12.1vw;
     padding-top: 10%;
     padding-right: 5%;
   }
   .comment-box-vote-buttons {
-    min-height: 10.5vh;
+    min-height: 12.5vh;
     padding-left: 5%;
     padding-top: 2%;
   }
   .thread-vote-button {
-    min-height: 6vh;
-    padding-left: 5%;
+    min-height: 7vh;
+    padding-left: 10%;
   }
   .no-user-thread-vote-button {
-    min-height: 6vh;
-    padding-left: 5%;
+    min-height: 7vh;
+    padding-left: 10%;
   }
   .article-body-box-votes {
-    min-height: 4vh;
+    min-height: 13vh;
     min-width: 12.1vw;
-    padding-top: 10%;
+    padding-top: 12%;
     padding-right: 5%;
   }
   .comment-box-votes-info {
