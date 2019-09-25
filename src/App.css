@@ -3,6 +3,13 @@
   font-family: "Inter", sans-serif;
   background-color: silver;
 }
+body {
+  font-size: 16px;
+}
+input,
+select {
+  font-size: 100%;
+}
 /*topbar styling */
 .topbar {
   display: flex;
@@ -353,7 +360,7 @@ button {
   display: flex;
   flex-direction: row;
   background-color: white;
-  max-height: 9vh;
+  max-height: 10vh;
   padding-bottom: 2%;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
@@ -935,7 +942,7 @@ button {
     max-height: 5vh;
     padding-top: 3.5%;
   }
-  .delete-button-area{
+  .delete-button-area {
     padding-top: 4%;
   }
   .article-box-header {
@@ -1016,7 +1023,7 @@ button {
     padding-bottom: 0;
   }
   .article-box {
-    min-height: 29vh;
+    min-height: 30vh;
   }
   .filter-topic-container {
     flex-direction: column;
@@ -1088,7 +1095,7 @@ button {
     width: 25vw;
   }
   .article-box-content {
-    max-height: 14vh;
+    max-height: 14vh !important;
   }
   .article-box-header {
     min-height: 14.2vh;
@@ -1168,7 +1175,7 @@ button {
     max-width: 56vw;
     padding-top: 8.2%;
   }
-  .article-body-icon{
+  .article-body-icon {
     padding-top: 23.2% !important;
   }
   .article-body-header {
