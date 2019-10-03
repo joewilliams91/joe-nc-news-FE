@@ -18,7 +18,7 @@ select {
   width: 100%;
   top: 0;
   z-index: 100;
-  font-size: 1.2vw;
+  font-size: 1.2rem;
   height: 8vh;
 }
 .logo {
@@ -104,7 +104,7 @@ select {
   flex-direction: column;
   align-items: center;
   width: 50vw;
-  font-size: 1.1vw;
+  font-size: 0.9rem;
   padding-bottom: 4%;
 }
 
@@ -508,7 +508,7 @@ button {
   background-color: white;
   height: 80%;
   margin-top: 0;
-  font-size: calc(0.5em + 0.5vw);
+  font-size: 1rem;
   padding-left: 1%;
   padding-right: 1%;
 }
@@ -568,7 +568,7 @@ button {
   border-radius: 7px;
   display: flex;
   flex-direction: column;
-  font-size: 1.1vw;
+  font-size: 1rem;
   align-items: center;
 }
 
@@ -996,7 +996,7 @@ button {
     display: flex;
     justify-content: flex-start;
     max-width: 17vw;
-    font-size: 2vh;
+    font-size: 1.5rem;
   }
   #login-button{
     font-size: 1rem;
@@ -1183,7 +1183,7 @@ button {
     display: flex;
     justify-content: flex-start;
     max-width: 20vw;
-    font-size: 2vh;
+    font-size: 1rem;
   }
   .logo {
     min-width: 30% !important;
