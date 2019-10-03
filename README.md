@@ -4,7 +4,7 @@
 
 NC News is a responsive, Reddit-style web application built using React and serving as a news aggregation and comments board.
 
-The front end of the project is hosted here: _______________________________
+The front end of the project is hosted here: https://joewilliams91-nc-news.netlify.com
 
 The back end API used for this project can be accessed at: https://joe-nc-news.herokuapp.com/api
 
